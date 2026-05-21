@@ -1,0 +1,664 @@
+
+
+	<!DOCTYPE html>
+	<html lang="ko">
+		<head>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<meta http-equiv="content-type" content="text/html; charset=utf-8">
+			<title>IDIS Partner Portal Service</title>
+			<link rel="stylesheet" href="../style.css" type="text/css">
+		</head>
+
+<script type="text/javascript">
+// 자바스크립트에서 사용하는 전역변수 선언
+var idis_path      = "..";
+var idis_bbs       = "bbs";
+var idis_bbs_img   = "img";
+var idis_url       = "http://partners.idisglobal.com";
+var idis_is_member = "1";
+var idis_is_admin  = "";
+var idis_bo_table  = "";
+var idis_sca       = "";
+var idis_charset   = "utf-8";
+var idis_cookie_domain = "";
+var idis_is_gecko  = navigator.userAgent.toLowerCase().indexOf("gecko") != -1;
+var idis_is_ie     = navigator.userAgent.toLowerCase().indexOf("msie") != -1;
+</script>
+
+	<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="../js/common.js?ver=1748325421"></script>
+	<body topmargin="0" leftmargin="0"  >
+	<a name="idis_head"></a>
+	<link rel="stylesheet" type="text/css" href="../css/style_down.css" />
+	
+<script type="text/javascript" src="../js/fullPopup_1.3.js"></script>
+
+<html>
+<head>
+	<title>NVR Capacity Estimator</title>
+
+	<script type="text/javascript" src="../skin/design_tool/js/Util.js"></script>
+	<script>
+	var IGNORE_MAX = -1;
+	var UI_STREAM_COUNT = 6
+	var UI_STREAM_INDEX =
+	{
+		STREAM_LIVE1: 0,
+		STREAM_LIVE2: 1,
+		STREAM_RECORD_TIMELAPS: 2,
+		STREAM_RECORD_EVENT: 3,
+		STREAM_REMOTE: 4,
+		STREAM_MAT: 5
+	}
+
+	var VIDEO_FORMAT_TYPE =
+	{
+	FORMAT_NTSC: 0,
+FORMAT_PAL: 1,
+FORMAT_IP: 2,
+	};
+
+	var RESOLUTION_TYPE =
+	{
+	RES_176_120: 0,
+RES_352_240: 1,
+RES_704_240: 2,
+RES_704_480: 3,
+RES_1280_720: 4,
+RES_1280_960: 5,
+RES_1600_1200: 6,
+RES_1920_1080: 7,
+RES_2304_1296: 8,
+RES_2048_1536: 9,
+RES_2592_1944: 10,
+RES_640_360: 11,
+RES_480_240: 12,
+RES_960_240: 13,
+RES_960_480: 14,
+RES_1280_1024: 15,
+RES_STANDARD: 16,
+RES_HIGH: 17,
+RES_VERY_HIGH: 18,
+RES_640_480: 19,
+RES_320_240: 20,
+RES_1024_1024: 21,
+RES_3840_2160: 22,
+RES_2048_2048: 23,
+RES_512_512: 24,
+RES_720_576: 25,
+RES_2560_2048: 26,
+RES_2048_1024: 27,
+RES_2048_512: 28,
+RES_1536_1536: 29,
+RES_1024_512: 30,
+RES_640_512: 31,
+RES_528_320: 32,
+RES_360_240: 33,
+RES_720_480: 34,
+RES_752_752: 35,
+RES_1504_1504: 36,
+RES_3008_1504: 37,
+RES_2256_2256: 38,
+RES_3008_3008: 39,
+RES_320_180: 40,
+RES_4000_3000: 41,
+RES_800_600: 42,
+RES_480_360: 43,
+RES_800_736: 44,
+RES_1600_1472: 45,
+RES_3200_3008: 46,
+RES_3072_1728: 47,
+RES_3200_1472: 48,
+RES_1600_736: 49,
+RES_2400_2208: 50,
+RES_360_288: 51,
+RES_960_576: 52,
+RES_1920_1536: 53,
+RES_2560_1024: 54,
+RES_1280_512: 55,
+RES_1600_1504: 56,
+RES_1600_752: 57,
+RES_2400_2256: 58,
+RES_3200_1504: 59,
+RES_2592_1456: 60,
+RES_1920_1440: 61,
+RES_2560_1440: 62,
+RES_768_768: 63,
+RES_2944_2944: 64,
+RES_640_256: 65,
+RES_768_384: 66,
+RES_736_736: 67,
+RES_1472_1472: 68,
+RES_2208_2208: 69,
+RES_2944_1472: 70,
+RES_272_240: 71,
+RES_960_720: 72,
+RES_1440_1080: 73,
+RES_2592_1520: 74,
+RES_3328_1872: 75,
+RES_1280_1440: 76,
+RES_1280_1920: 77,
+RES_2560_1920: 78,
+RES_352_288: 79,
+RES_480_288: 80,
+RES_720_240: 81,
+RES_720_288: 82,
+RES_960_288: 83,
+RES_2688_1520: 84,
+	};
+
+	var RESOLUTION_TYPE_STRING =
+	[
+	"176x120","352x240","704x240","704x480","1280x720","1280x960","1600x1200","1920x1080","2304x1296","2048x1536","2592x1944","640x360","480x240","960x240","960x480","1280x1024","Standard","High","Very High","640x480","320x240","1024x1024","3840x2160","2048x2048","512x512","720x576","2560x2048","2048x1024","2048x512","1536x1536","1024x512","640x512","528x320","360x240","720x480","752x752","1504x1504","3008x1504","2256x2256","3008x3008","320x180","4000x3000","800x600","480x360","800x736","1600x1472","3200x2944","3072x1728","3200x1472","1600x736","2400x2208","360x288","960x576","1920x1536","2560x1024","1280x512","1600x1504","1600x752","2400x2256","3200x1504","2592x1456","1920x1440","2560x1440","768x768","2944x2944","640x256","768x384","736x736","1472x1472","2208x2208","2944x1472","272x240","960x720","1440x1080","2592x1520","3328x1872","1280x1440","1280x1920","2560x1920","352x288","480x288","720x240","720x288","960x288","2688x1520",	];
+
+	var QUALITY_TYPE =
+	{
+	QUALITY_LOW: 0,
+QUALITY_BASIC: 1,
+QUALITY_STANDARD: 2,
+QUALITY_HIGH: 3,
+QUALITY_VERY_HIGH: 4,
+	};
+
+	var QUALITY_TYPE_STRING =
+	[
+	"Low","Basic","Standard","High","Very High",	];
+
+	var CODEC_TYPE =
+	{
+	CODEC_H264: 0,
+CODEC_MJPEG: 1,
+CODEC_MPEG: 2,
+CODEC_MP4: 3,
+CODEC_H265: 4,
+	};
+
+	var CODEC_TYPE_STRING =
+	[
+	"H264","JPEG","MPEG","MP4","H265",	];
+
+	var VIDEO_CAMERA_TYPE =
+	{
+	DUMMY_ANALOG: 0,
+DUMMY_NETWORK: 1,
+ANALOG: 2,
+NETWORK: 3,
+NETWORK_3RD: 4,
+	};
+
+	var VIDEO_RECODER_TYPE =
+	{
+	DIGITAL: 0,
+NETWORK: 1,
+DIRECTIP: 2,
+HYBRID: 3,
+DUMMY_DVR: 4,
+DUMMY_NVR: 5,
+DUMMY_HYBRID: 6,
+	};
+
+	var RAID_TYPE =
+	{
+	RAID_NONE: 0, 
+RAID_0: 1, 
+RAID_1: 2, 
+RAID_2: 3, 
+RAID_3: 4, 
+RAID_4: 5, 
+RAID_5: 6, 
+RAID_6: 7, 
+RAID_10: 8, 
+	};
+
+	var RAID_TYPE_STRING =
+	[
+	"NONE","RAID0","RAID1","RAID2","RAID3","RAID4","RAID5","RAID6","RAID1+0",	];
+	</script>
+
+	<!-- <script type="text/javascript" src="/skin/design_tool/js/enums.js"></script> maker php -->
+	<script type="text/javascript" src="../skin/design_tool/js/structure.js"></script>
+	<script type="text/javascript" src="../skin/design_tool/js/main.js"></script>
+	<script type="text/javascript" src="../skin/design_tool/js/FileSaver.min.js"></script>
+	<script type="text/javascript" src="../skin/design_tool/js/jszip.min.js"></script>
+	<script type="text/javascript" src="../skin/design_tool/js/jszip-utils.js"></script>
+	<script type="text/javascript" src="../skin/design_tool/js/models_js_511_503.js?1748325421"></script>
+	<!--script>
+			</script-->
+
+	<link rel="stylesheet" href="../css/storage_style.css" type="text/css">
+	<style>
+		.setting_layer .add_camera_layer .camera_simple_setting_layer button {
+			padding: 0px 5px 3px;
+			width: auto;
+			height: 27px;
+			font-size: 14px;
+			font-weight: 400;
+			border-radius: 0.25rem;
+			background-color: #fff !important;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			border: 1px solid #66d1dc !important;
+			color: #66d1dc !important;
+		}
+		html:first-child select {
+			height: 26px;
+			padding-right: 6px;
+		}
+		#camera_table td button, #submit_modify, #close_modify {
+		    padding: 0 5px;
+			width: 125px;
+		    height: 30px;
+		    font-size: 14px;
+		    font-weight: 400;
+		    border-radius: 0.25rem;
+		    background-color: #66d1dc !important;
+		    -webkit-appearance: none;
+		    -moz-appearance: none;
+		    appearance: none;
+		    border: 1px solid #66d1dc !important;
+		    color: #fff !important;
+		}
+		.setting_layer .additional_camera_list_layer .table_items_layer td, #time_length_result_table td, #capacity_result_table td {
+			height: 35px;
+		}
+		label {
+			display: inline-block;
+			margin-bottom: 0.5rem;
+		}
+		button, label {
+			cursor: pointer;
+		}
+		.form-check-input {
+			position: absolute;
+			margin-top: 0.3rem;
+			margin-left: -1.25rem;
+		}
+		.form-check input[type="checkbox"], .form-check2 input[type="checkbox"] {
+			display: none;
+		}
+		.form-check input[type="checkbox"]:checked + label::before, .form-check2 input[type="checkbox"]:checked + label::before {
+			content: "✔";
+			padding: 0px 4px;
+			color: #66d1dc;
+			font-size: 8pt;
+			border-color: #66d1dc;
+			width: 9px;
+		}
+		.form-check label, .form-check2 label {
+			position: relative;
+			font-size: 14px;
+		}
+		.form-check label::before, .form-check2 label::before {
+			content: "";
+			position: absolute;
+			top: 0px;
+			left: -2.19rem;
+			width: 17px;
+			height: 17px;
+			border: 1px solid #ced4da;
+			background-color: #fff;
+		}
+	</style>
+</head>
+
+<body onload="init()">
+	<table border="0" cellpadding="0" cellspacing="0" id='body_tabel'>
+		<tr><td align="center" valign="top">
+			<div class="container" id="layer_container">
+				<div class="upper_layer"  id="project_setting_area" style="margin-bottom:0px;">
+					<!--label id="selected_model_label">Project Setting</label-->
+					<div class="model_setting_layer" style="text-align:right; border:0px; padding:0;">
+						<span id="label_select_display_unit">Bandwidth Unit :</span>
+						<select id="select_display_unit" onChange="onChangeUnit()"><option>MBps</option></select>
+					</div> <!-- model_setting_layer -->
+				</div> <!-- upper_layer -->
+
+				<div class="upper_layer">
+					<label id="selected_model_label">Recorder</label>
+					<div class="model_setting_layer form-check">
+						<input type="hidden" value="" id="choiceNvr" />
+
+						<span class="label" style="margin-left:0;"> Recorder Model :</span>
+						<select id="select_nvr_model" onChange="onChangeNVRModel()" style="width: 165px;"><option>NVR MODELS</option></select>
+						<input class="select_directIP form-check-input" id="check_direct_ip_mode" type="checkbox" value="CBR" onClick="onClickUseDirectIP2(this)" style="margin-left: 12px;">
+						<label for="check_direct_ip_mode" class="form-check-label" style="margin: 0 0 0 35px;">Channel Allocation Optimization</label>
+
+						<span class="label" id="label_select_hdd_capacity">HDD Capacity :</span>
+						<select id="select_hdd_capacity" onChange="onChangeHddCapacity(this)"><option>100 GB</option></select>
+
+						<span class="label" style="display:none;">Quantity :</span>
+						<input type="hidden" id="quantity_recorder" value="1" />
+					</div> <!-- model_setting_layer -->
+				</div> <!-- upper_layer -->
+
+				<div class="setting_layer" id="layer_setting">
+					<div class="add_camera_layer">
+						<div class="tabbar_layer">
+							<div class="tab_layer">	Camera </div> <!-- tab_layer -->
+						</div> <!-- tabbar_layer -->
+						<div class="camera_simple_setting_layer">
+							<span class="label" id="label_select_camera_model"> Camera Model :</span>
+							<select id="select_camera_model" onChange="onChangeCameraModel(this)" style="width: 172px;">
+								<option>IP Cameras</option>
+							</select>
+							<span class="label" id="label_select_camera_count"> Number of Cameras :</span>
+							<input id="select_camera_count" value="1" style="text-align:center;" onChange="onChangeCameraCount(this)"/>
+							<button id="toogle_detail_setting_button" onClick="onClickDetailSettingButton()">Open Detail Setting</button>
+							<button id="inset_camera" onClick="onClickInsertCameraProfile()" style="margin-left:10px;">Insert Camera</button>
+							<select id="select_bandwidth_unit" onChange="onChangeBandwidthUnit(this)" style="width: 100px;">
+								<option>Bandwidth Unit</option>
+							</select>
+						</div> <!-- camera_simple_setting_layer -->
+					</div> <!-- add_camera_layer -->
+
+					<div class="additional_camera_list_layer">
+						<div class="tabbar_layer">
+							<div class="tab_layer">Selected Cameras &nbsp; &nbsp; &nbsp; &nbsp;<span class="label" id="camera_bitrate_allocation"></span></div> <!-- tab_layer -->
+						</div> <!-- tabbar_layer -->
+						<div class="table_colum_name_layer">
+							<!-- test output table -->
+							<table border=1px width="100%" height="110%" align="left" cellspacing=0 cellpadding=0>
+								<tr bgcolor="#f9f9f9">
+									<td rowspan=2 width="140px" align="center"> Camera Model </td>
+									<td rowspan=2 width="80px" align="center"> Number of <br> Cameras </td>
+									<td colspan=4 align="center"> Bandwidth </td>
+									<td rowspan=2 width="" align="center"> Menu </td>
+								</tr>
+								<tr bgcolor="#f9f9f9">
+									<td width="145px" align="center"> Stream1 </td>
+									<td width="145px" align="center"> Stream2 </td>
+									<td width="146px" align="center"> Stream3 </td>
+									<td width="146px" align="center"> Total </td>
+								</tr>
+							</table>
+							<!-- test output table -->
+						</div> <!-- table_colum_name_layer-->
+						<div class="table_items_layer" style="width:100%; height:200px; overflow:auto; background: #f1f1f1;">
+							<!-- overflow시에는 width크기를 바꾸어준다. -->
+							<!-- test output table -->
+							<table id="camera_table" border=1px width="100%" valign="top" cellspacing=0 cellpadding=0></table>
+						</div> <!-- table_items_layer -->
+						<div class="table_total_result_layer">
+							<!-- test output table -->
+							<table border=1px width="100%" height="65%" align="left" cellspacing=0 cellpadding=0>
+								<tr>
+									<td width="140px" align="center" bgcolor="#E0E0E0"> Total </td>
+									<td id="total_camera_count" width="80px" align="center"> </td>
+									<td id="total_live_bandwidth" width="115px" align="center"> </td>
+									<td id="total_record_bandwidth" width="115px" align="center"> </td>
+									<td id="total_remote_bandwidth" width="115px" align="center"> </td>
+									<td id="total_bandwidth" width="115px" align="center"> </td>
+									<td width="90px" align="center"> </td>
+								</tr>
+							</table>
+							<!-- test output table -->
+						</div> <!-- table_total_result_layer -->
+					</div> <!-- additional_camera_list_layer -->
+				</div> <!-- setting_layer -->
+
+				<div class="raid_layer">
+					<label id="selected_raid_label">RAID Option</label>
+					<div class="raid_setting_layer">
+						<span class="label" style="margin-left:0;"> RAID Type :</span>
+						<select id="raid_type" onChange="updateCapacityResult()" style="width: 165px;"><option>RAID Types</option></select>
+						<span class="label" id="label_raid_hdd"></span>
+					</div>
+				</div>
+
+				<div class="result_layer">
+					<div class="time_length_result_table_layer" id="layer_time_length_result">
+						<div class="tabbar_layer">
+							<div class="tab_layer"> Recordable Time Length </div>
+						</div> <!-- tabbar_layer -->
+
+						<!-- test output table-->
+						<table id="time_length_result_table" cellspacing=0 cellpadding=0 width="100%">
+							<tr bgcolor="#f9f9f9">
+								<td width="20%" align="center" class="label">Storage Capacity</td>
+								<td width="20%" align="center" class="label">Hour(s)</td>
+								<td width="20%" align="center" class="label">Day(s)</td>
+								<td width="20%" align="center" class="label">Week(s)</td>
+								<td width="20%" align="center" class="label">Month(s)</td>
+							</tr>
+							<tr>
+								<td align="center">
+									<input id="disk_capacity_value" value=1 onChange="updateResult()" size=3/>
+									<select id="disk_capacity_unit" onChange="updateResult()" ><option>PB</option><option selected>TB</option><option>GB</option></select>
+								</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+								<td align="center">0</td>
+							</tr>
+						</table>
+						<!-- test output table-->
+					</div>
+
+					<div class="capacity_result_table_layer" id="layer_capacity_result">
+						<div class="tabbar_layer">
+							<div class="tab_layer"> Required Disk Capacity </div>
+						</div>
+
+						<!-- test output table-->
+						<table id="capacity_result_table" cellspacing=0 cellpadding=0 width="100%">
+							<tr bgcolor="#f9f9f9">
+								<td width="50%" align="center" class="label">Record Duration</td>
+								<td width="50%" align="center" class="label">Storage Capacity</td>
+							</tr>
+							<tr>
+								<td align="center">
+									<input id="record_duration_value" value="10" align="right" onChange="updateResult()" size=10/>
+									<select id="record_duration_unit" onChange="updateResult()"><option>Hour(s)</option><option>Day(s)</option><option>Week(s)</option><option>Month(s)</option></select>
+								</td>
+								<td align="center">
+									<span id="record_capcity_value">0</span>
+									<select id="record_capcity_unit" onChange="updateResult()" >
+										<option>PB</option><option selected>TB</option><option>GB</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+						<!-- test output table-->
+					</div> <!-- capacity_result_table_layer -->
+				</div> <!-- result_layer -->
+			</div> <!-- container -->
+
+			<ul id="item_list">
+				<li>text</li>
+				<li>text2</li>
+			</ul>
+		</td></tr>
+	</table>
+
+	<!-- popup -->
+	<div id="layer_camera_detail_setting_bg"></div>
+	<div class="camera_detail_setting_layer" id="layer_camera_detail_setting">
+		<div class="camera_record_setting_layer">
+			<div class="tabbar_layer">
+				<div class="tab_layer">
+					<div style="float:left;">Record Video Profile</div>
+					<!--button type="button" id="btn_live_remote_setting" onClick="onClickLiveSettingButton()">Live/Remote Setting</button-->
+					<!--button type="button" id="btn_live_remote_setting" onClick="onClickLiveSettingButton()">Live/Remote Setting</button-->
+					<span style="margin-left:210px; color:#797979;">
+						<input class="interfaceCodecInput" id="check_use_intelligent_codec" type="checkbox" value="CBR" onClick="onClickUseIntelligentCodecCheck(this)" style="height:13px;">Use Intelligent Codec
+						<span id="wdrCheckArea"><input class="interfaceCodecInput" id="check_use_wdr" type="checkbox" value="CBR" onClick="onClickUseWDR(this)" style="height:13px;">Use WDR</span>
+						<span id="sslCheckArea"><input class="interfaceCodecInput" id="check_use_ssl" type="checkbox" value="CBR" onClick="onClickUseSSL(this)" style="height:13px;">Use SSL</span>
+						<span id="halfModeCheckArea"><input class="interfaceCodecInput" id="check_use_half_mode" type="checkbox" value="CBR" onClick="onClickUseHalfMode(this)" style="height:13px;">Use Half Mode</span>
+						<span id="resModSelectArea" style="margin-left: 8px;">Analog Mode Change<select id="select_analog_camera_resolution_mode" onChange="onChangeAnalogResolution()" style="height:23px; margin-left:5px;"></select></span>
+					</span>
+				</div>
+				<!-- tab_layer -->
+			</div>
+			<!-- tabber_layer -->
+			<div class="camera_record_table_layer">
+				<!-- test output table -->
+				<table width="100%" align="left" cellspacing=0 cellpadding=0>
+					<tr>
+						<td class="label" align="center" style="padding-left:10px"></td>
+						<td class="label" width="16.6%" align="center">Encode</td>
+						<td class="label" width="16.6%" align="center">Resolution</td>
+						<td class="label" width="16.6%" align="center">Frame Rate</td>
+						<td class="label" width="16.6%" align="center">Video quality</td>
+						<td class="label" width="16.6%" align="center">Bandwidth</td>
+					</tr>
+					<tr>
+						<td class="label" align="left" style="padding-left:10px"><input id="check_use_timelaps" type="checkbox" checked="check" value="timelaps" onClick="onClickRecordProfileCheck(this)" style="display:none;"> Time Lapse</td>
+						<td align="center"><select id="select_timelaps_codec" onChange="onChangeProfileOptions()" style="width:80%; "></select></td>
+						<td align="center"><select id="select_timelaps_resolution" onChange="onChangeProfileOptions()" style="width:80%; "></select></td>
+						<td align="center"><select id="select_timelaps_framerate" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><select id="select_timelaps_quality" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><input id="input_timelaps_bandwidth" onChange="onChangeProfileOptions()" disabled="disabled" value="0" style="width:80%; text-align:right;"></td>
+					</tr>
+					<tr>
+						<td class="label" align="left" style="padding-left:10px"><input id="check_use_event" type="checkbox" checked="check" value="events" onClick="onClickRecordProfileCheck(this)" style="display:none;"> Events</td>
+						<td align="center"><select id="select_event_codec" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><select id="select_event_resolution" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><select id="select_event_framerate" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><select id="select_event_quality" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><input id="input_event_bandwidth" onChange="onChangeProfileOptions()" disabled="true" value="0" style="width:80%; text-align:right;"></td>
+					</tr>
+					<tr>
+						<td class="label" align="left" style="padding-left:10px"><input id="check_use_mat" type="checkbox" checked="check" value="matValue" onClick="onClickRecordProfileCheck(this)" style="display:none;"> MAT</td>
+						<td align="center"><select id="select_mat_codec" onChange="onChangeProfileOptions()" disabled="true" style="width:80%;"></select></td>
+						<td align="center"><select id="select_mat_resolution" onChange="onChangeProfileOptions()" disabled="true" style="width:80%;"></select></td>
+						<td align="center"><select id="select_mat_framerate" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><select id="select_mat_quality" onChange="onChangeProfileOptions()" disabled="true" style="width:80%;"></select></td>
+						<td align="center"><input id="input_mat_bandwidth" onChange="onChangeProfileOptions()" disabled="true" value="0" style="width:80%; text-align:right;"></td>
+					</tr>
+				</table>
+				<!-- test output table -->
+			</div>
+		</div> <!-- camera_record_setting_layer -->
+
+		<div class="video_quality_setting_table_layer">
+			<div class="tabbar_layer">
+				<div class="tab_layer"> Set Recording</div> <!-- tab_layer -->
+			</div> <!-- tabber_layer -->
+
+			<div class="set_recording">
+				<!-- tast output table -->
+				<table width="100%" align="left" cellspacing=0 cellpadding=0>
+					<!--<table border=1px width="50%" height="100%" align="left" cellspacing=0 cellpadding=0 style="margin-left:5px">--><!-- explr -->
+					<tr>
+						<td class="label" width="17.6%" align="center">Event Ratio (Frequency)</td>
+						<!--<td class="brighter_label" width="25%" align="center">Number of Audio Inputs</td>--><!-- explr -->
+						<td align="left"><input id="input_event_ratio" value="100" onkeyup="onChangeRatio(this)" onkeydown="isNumber(this)" />&nbsp;% &nbsp;&nbsp;(Enter the probability that events will occur within the set Event time)</td>
+						<!--<td align="center"><input id="input_audio_count" value="0" style="width:50%; text-align:center;" onkeypress="useOnlyNumberKey(event)"  onChange="onChangeCameraCount(this)"/>&nbsp;</td>-->
+					</tr>
+					<td class="label" width="17.6%" align="center">MAT Ratio (Frequency)</td>
+						<!--<td class="brighter_label" width="25%" align="center">Number of Audio Inputs</td>--><!-- explr -->
+						<td align="left"><input id="input_mat_ratio" value="100" onkeyup="onChangeRatio(this)" onkeydown="isNumber(this)" />&nbsp;% &nbsp;&nbsp;(Enter the probability that motion will occur within the set Time Lapse time)</td>
+						<!--<td align="center"><input id="input_audio_count" value="0" style="width:50%; text-align:center;" onkeypress="useOnlyNumberKey(event)"  onChange="onChangeCameraCount(this)"/>&nbsp;</td>-->
+					</tr>
+					<tr>
+						<td class="label" align="center">Recording Period</br>(Hours per Day)</td>
+						<td>
+							<table class="border_none" width="100%">
+								<tr>
+									<td>Time Lapse & Event : <input type="text" value="" id="input_period_te" size=2 onkeyup="onChangePeriod(this)" onkeydown="isNumber(this)" > Hours</td>
+									<td>+</td>
+									<td>Time Lapse : <input type="text" value="" id="input_period_t" size=2 onkeyup="onChangePeriod(this)" onkeydown="isNumber(this)" > Hours</td>
+									<td>+</td>
+									<td>Event : <input type="text" value="" id="input_period_e" size=2 onkeyup="onChangePeriod(this)" onkeydown="isNumber(this)" > Hours</td>
+									<td>+</td>
+									<td>No Record : <input type="text" value="" id="input_period_n" size=2 onkeyup="onChangePeriod(this)" onkeydown="isNumber(this)" > Hours</td>
+									<td>=</td>
+									<td>24 Hours</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!-- test output table -->
+		</div> <!-- video_quality_setting_layer -->
+
+		<!-- bandwidth result -->
+		<div id="bandwidth_result">
+			<div class="tabbar_layer">
+				<div class="tab_layer"> Bandwidth Result </div> <!-- tab_layer -->
+			</div> <!-- tabber_layer -->
+
+			<div>
+				<table width="100%" align="left" cellspacing=0 cellpadding=0>
+					<tr>
+						<td class="label" width="17.6%" align="center">Time Lapse</td>
+						<td width="16.6%" align="center" id="bandwidth_result_time_lapse">0 Mbps</td>
+						<td class="label" width="16.6%" align="center">Events</td>
+						<td width="16.6%" align="center"  id="bandwidth_result_events">0 Mbps</td>
+						<td class="label" width="16.6%" align="center">Total</td>
+						<td width="" align="center"  id="bandwidth_result_total">0 Mbps</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<!-- bandwidth result -->
+		<div class="camera_stream_setting_layer" style="display:block;">
+			<div class="tabbar_layer">
+				<div class="tab_layer"> Live/Remote Video Profile </div> <!-- tab_layer -->
+			</div> <!-- tabber_layer -->
+			<div class="camera_stream_table_layer">
+				<!-- test output table-->
+				<table width="100%" align="left" cellspacing=0 cellpadding=0 >
+					<tr >
+						<td class="label" align="center"></td>
+						<td class="label" width="16.6%" align="center">Encode</td>
+						<td class="label" width="16.6%" align="center">Resolution</td>
+						<td class="label" width="16.6%" align="center">Frame Rate</td>
+						<td class="label" width="16.6%" align="center">Video quality</td>
+						<td class="label" width="16.6%" align="center">Bandwidth</td>
+					</tr>
+					<tr>
+						<td class="label" align="center" id="camera_stream_1">Live 1</td>
+						<td align="center"><select id="select_live1_codec" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><select id="select_live1_resolution" onChange="onChangeProfileOptions()" style="width:80%; "></select></td>
+						<td align="center"><select id="select_live1_framerate" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><select id="select_live1_quality" onChange="onChangeProfileOptions()" style="width:80%; "></select></td>
+						<td align="center"><input id="input_live1_bandwidth" onChange="onChangeProfileOptions()" disabled="true" value="0" style="width:80%; text-align:right;"></td>
+					</tr>
+					<tr>
+						<td class="label" align="center" id="camera_stream_2">Live 2</td>
+						<td align="center"><select id="select_live2_codec" onChange="onChangeProfileOptions()" style="width:80%; "></select></td>
+						<td align="center"><select id="select_live2_resolution" onChange="onChangeProfileOptions()" style="width:80%; "></select></td>
+						<td align="center"><select id="select_live2_framerate" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><select id="select_live2_quality" onChange="onChangeProfileOptions()" style="width:80%; "></select></td>
+						<td align="center"><input id="input_live2_bandwidth" onChange="onChangeProfileOptions()" disabled="true" value="0" style="width:80%; text-align:right;"></td>
+					</tr>
+					<tr>
+						<td class="label" align="center" id="camera_stream_3">Remote</td>
+						<td align="center"><select id="select_remote_codec" onChange="onChangeProfileOptions()" style="width:80%; "></select></td>
+						<td align="center"><select id="select_remote_resolution" onChange="onChangeProfileOptions()" style="width:80%; "></select></td>
+						<td align="center"><select id="select_remote_framerate" onChange="onChangeProfileOptions()" style="width:80%;"></select></td>
+						<td align="center"><select id="select_remote_quality" onChange="onChangeProfileOptions()" style="width:80%; "></select></td>
+						<td align="center"><input id="input_remote_bandwidth" onChange="onChangeProfileOptions()" disabled="true" value="0" style="width:80%; text-align:right;"></td>
+					</tr>
+				</table>
+				<!-- test output table-->
+			</div> <!-- camera_steram_table_layer -->
+		</div> <!-- camera_stream_setting_layer -->
+
+		<div class="btn_area">
+			<button id="submit_modify" onClick="onClickModifySumit()"> Submit </button>
+			<button id="close_modify" onClick="onClickModifyClose()"> Close </button>
+		</div>
+	</div> <!-- camera_detail_setting_layer -->
+
+	<form id="report_form" method="post" enctype="multipart/form-data" action="storage_calculator_export.php" target="ifrmHiddenframe">
+		<input type="hidden" id="report_project_name" name="report_project_name" value="">
+		<input type="hidden" id="report_mode" name="report_mode" value="print">
+		<input type="hidden" id="report_data" name="report_data" value="">
+		<input type="hidden" id="report_data_result" name="report_data_result" value="">
+	</form>
+
+	<form id="project_save_form" method="post" enctype="multipart/form-data" action="storage_calculator_project_save.php" target="ifrmHiddenframe">
+		<input type="hidden" id="project_name" name="project_name" value="">
+		<input type="hidden" id="project_save_data" name="project_save_data" value="">
+		<input type="hidden" id="project_save_data_result" name="project_save_data_result" value="">
+	</form>
+
+		<iframe name="ifrmHiddenframe" style="width:0px; height:0px;"></iframe>
+</body>
+</html>

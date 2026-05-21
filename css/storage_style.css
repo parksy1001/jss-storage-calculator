@@ -1,0 +1,636 @@
+body {
+    font: 12px 'Open Sans', sans-serif;
+}
+
+select {
+    background-color: white;
+    border: 1px solid #ddd;
+    font: 11px 'Open Sans', sans-serif;
+	height:26px;
+	line-height:26px;
+}
+
+table {
+    border-collapse: collapse;
+    font: 12px 'Open Sans', sans-serif;
+}
+
+input{
+	border:1px solid #ddd;
+	height:22px;
+	line-height:22px;
+	padding:0 5px;
+}
+
+button{
+	color:#fff;
+	background:#0199b0;
+	border:0;
+	padding:2px 5px;
+}
+
+
+#item_list{
+	display:none;
+}
+
+
+.label {
+    font: 12px 'Open Sans', sans-serif;
+    color: #797979;
+}
+
+.brighter_label {
+    font: 12px 'Open Sans', sans-serif;
+    font-weight: bold;
+    color: #797979;
+}
+
+.tabbar_layer {
+	position:relative;
+	width: 100%;
+}
+
+.tab_layer {
+	border-bottom: none;
+	background-color: #fff;
+	display: inline;
+	color: #47b4c5;
+	font-weight: bold;
+	height:26px;
+	line-height:26px;
+}
+
+.tab_layer2 {
+	border-bottom: yes;
+	background-color: #fff;
+	display: inline;
+	color: #47b4c5;
+	font-weight: bold;
+}
+
+.disable_tab_layer {
+	border: 1px solid #777;
+	border-bottom: none;
+	background-color: #AAA;
+	display: inline;
+	color: #472;
+	font-weight: bold;
+}
+
+.container {
+
+   /* background: url("NVR_Estimator_pre.png");
+    background-repeat: no-repeat;  */
+	text-align: left;
+}
+
+
+/* setting bottom layer */
+.setting_bottom_layer {
+
+	background: url("background_middle.png");
+	background-repeat: no-repeat;
+}
+
+/* setting layer */
+.setting_layer {
+    background-color: #FFF;
+	padding-top: 1px;
+}
+
+/* insert camera layer */
+.setting_layer .add_camera_layer {
+	padding: 0px;
+}
+
+.setting_layer .add_camera_layer .camera_simple_setting_layer {
+
+	border: 1px solid #ddd;
+	padding:10px;
+}
+.setting_layer .add_camera_layer .camera_simple_setting_layer .label{
+	margin-left:20px;
+}
+.setting_layer .add_camera_layer .camera_simple_setting_layer .label:nth-child(1){
+	margin-left:0px;
+}
+.setting_layer .add_camera_layer .camera_simple_setting_layer button{
+	margin-left:20px;
+}
+
+
+
+
+/* camera detail setting layer */
+#layer_camera_detail_setting{
+	width: 90%;
+	border: 1px solid #ddd;
+	display: none;
+	position:absolute;
+	top:50%;
+	left:0;
+	background:#fff;
+	margin:0 3%;
+	min-height:300px;
+	margin-top:-200px;
+	z-index:10;
+	padding:2%;
+}
+#layer_camera_detail_setting table{
+	float:none;
+}
+
+
+
+
+
+
+
+
+/* camera stream setting layer */
+.setting_layer .camera_detail_setting_layer .camera_stream_setting_layer {
+	width: 100%;
+}
+
+.setting_layer .camera_detail_setting_layer .camera_stream_setting_layer .camera_stream_table_layer {
+
+	width: 100%;
+}
+
+/* camera record setting layer */
+.setting_layer .camera_detail_setting_layer .camera_record_setting_layer {
+
+	width: 100%;
+	padding-top: 15px;
+}
+
+.setting_layer .camera_detail_setting_layer .camera_record_setting_layer .camera_record_table_layer {
+
+	width: 100%;
+}
+
+/* camera video quality settting table layer */
+.setting_layer .camera_detail_setting_layer .video_quality_setting_table_layer {
+
+	width: 100%;
+	padding-top: 15px;
+}
+
+
+
+
+
+
+
+
+
+/* calculate camera list layer */
+.setting_layer .additional_camera_list_layer {
+	padding-top: 15px;
+}
+
+.setting_layer .additional_camera_list_layer .table_colum_name_layer {
+
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+.setting_layer .additional_camera_list_layer .table_colum_name_layer td{
+	color:#797979;
+	border:1px solid #ddd;
+	height:26px;
+	line-height:26px;
+}
+
+.setting_layer .additional_camera_list_layer .table_items_layer {
+	width: 100%;
+	min-height:110px;
+	padding: 0px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	background:#f1f1f1;
+}
+.setting_layer .additional_camera_list_layer .table_items_layer td{
+	color:#797979;
+	border:1px solid #ddd;
+	height:26px;
+	line-height:26px;
+	border-top:1px solid #fff;
+	background:#fff;
+}
+
+
+
+
+.setting_layer .additional_camera_list_layer .table_total_result_layer {
+
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	display:none;
+}
+
+/* Raid setting layer */
+.raid_layer{
+	border-bottom: none;
+	background-color: #fff;
+	display: inline;
+	color: #47b4c5;
+	font-weight: bold;
+	height:26px;
+	line-height:26px;
+}
+
+.raid_setting_layer{
+	border:1px solid #ddd;
+	padding:10px;
+}
+.raid_setting_layer .label{
+	margin-left:20px;
+
+}
+
+/* calcuate results layer */
+.result_layer {
+	padding: 0px;
+	margin-top: 10px;
+}
+
+.result_layer .capacity_result_table_layer {
+
+	width: 100%;
+	margin: 0px;
+	background-color: #FFF;
+	display: block;
+}
+
+.result_layer .time_length_result_table_layer {
+
+	width: 100%;
+	margin: 0px;
+	background-color: #FFF;
+	display: block;
+}
+
+.vamfix input, .vamfix select, .vamfix textarea, .vamfix button{vertical-align:middle}
+.vamfix img{vertical-align:middle;margin-top:-2px}
+
+#title_label {
+	font: 14px 'Open Sans', sans-serif;
+	font-weight: bold;
+	color: #6AC335;
+}
+
+#selected_model_label {
+	font: 13px 'Open Sans', sans-serif;
+	font-weight: bold;
+	color: #47b4c5;
+	height:26px;
+	line-height:26px;
+	display:block;
+	cursor:default;
+}
+/* top layer controls */
+#select_nvr_model {
+	width: 190px;
+}
+
+#label_select_hdd_capacity {
+	display:none;
+	width: 100px;
+	white-space:nowrap;
+}
+
+#select_hdd_capacity {
+	display:none;
+	width: 80px;
+}
+
+#label_select_display_unit {
+	width: 120px;
+	white-space:nowrap;
+}
+
+#select_display_unit {
+	width: 80px;
+}
+
+/* add camera layer controls */
+#label_select_camera_model {
+	width: 100px;
+	white-space:nowrap;
+}
+
+#select_camera_model {
+	width: 150px;
+}
+
+#label_select_camera_count {
+
+	width: 150px;
+	white-space:nowrap;
+}
+
+#select_camera_count {
+	width: 50px;
+}
+
+#inset_camera {
+
+	width: 130px;
+	text-align: center;
+}
+
+
+#submit_modify {
+
+	width: 60px;
+	display: none;
+}
+
+#check_use_record_duration {
+
+	width: 15px;
+	margin: 0;
+}
+
+#label_record_duration {
+
+	width: 50px;
+}
+
+#record_duration_value {
+
+	margin: 0;
+	text-align: right;
+}
+
+#record_duration_unit {
+	height:24px;
+	line-height:24px;
+	margin: 0;
+	text-align: right;
+}
+
+#disk_capacity_unit {
+	margin: 0;
+	text-align: right;
+}
+
+#check_use_disk_capacity {
+
+	width: 15px;
+	margin: 0;
+}
+
+#label_disk_capacity {
+
+	width: 130px;
+	white-space:nowrap;
+	margin: 0;
+}
+
+#disk_capacity_value {
+	margin: 0;
+	text-align: right;
+}
+
+#disk_capacity_unit {
+	margin: 0;
+	text-align: left;
+}
+
+#label_disk_capacity {
+
+	width: 400px;
+	margin: 0;
+	text-align: center;
+	text-color: 0x0000FF;
+}
+
+#body_tabel{
+	width:96%;
+	margin:2%;
+}
+
+#label_raid_hdd {
+	font-weight: bold;
+}
+
+.model_setting_layer{
+	border:1px solid #ddd;
+	padding:10px;
+}
+.model_setting_layer .label{
+	margin-left:20px;
+
+}
+
+#camera_table td button{
+	display:inline-block;
+	margin:0px 1px;
+}
+
+
+#layer_camera_detail_setting_bg{
+	width:100%;
+	height:100%;
+	position:absolute;
+	background:rgba(1,1,1,0.8);
+	top:0;
+	display:none;
+	z-index:5;
+}
+
+
+.camera_stream_setting_layer{
+	padding-top:15px;
+	display:none;
+}
+
+.camera_stream_table_layer table td{
+	border: 1px solid #ddd;
+	height:26px;
+	line-height:26px;
+}
+.camera_stream_table_layer table td.label{
+	background:#f9f9f9;
+}
+.camera_stream_table_layer table td select,
+.camera_stream_table_layer table td input{
+	border:0;
+	padding:0;
+}
+.camera_stream_table_layer table td input{
+	height:26px;
+	line-height:26px;
+	width:99% !important;
+	padding-right:1%;
+	background:#fff;
+}
+
+.camera_record_setting_layer{
+
+}
+.camera_record_setting_layer table td{
+	border: 1px solid #ddd;
+	height:26px;
+	line-height:26px;
+}
+.camera_record_setting_layer table td.label{
+	background:#f9f9f9;
+}
+.camera_record_setting_layer table td select,
+.camera_record_setting_layer table td input{
+	border:0;
+	padding:0;
+}
+.camera_record_setting_layer table td input:disabled{
+	height:26px;
+	line-height:26px;
+	width:99% !important;
+	padding-right:1%;
+	background:#fff;
+}
+.camera_record_setting_layer table td input[type=checkbox]{
+	height:auto;
+	line-height:normal;
+	vertical-align:top;
+	margin-top:7px;
+}
+
+
+.video_quality_setting_table_layer{
+	padding-top:15px;
+}
+
+.set_recording td{
+	border: 1px solid #ddd;
+	height:26px;
+	line-height:26px;
+}
+.set_recording td.label{
+	line-height:normal;
+}
+.set_recording td.label{
+	background:#f9f9f9;
+}
+.set_recording td input{
+	background:#fff;
+	margin-left:1px;
+	margin-bottom:1px;
+}
+.set_recording td input:disabled{
+	background:#eee;
+}
+.set_recording .border_none td{
+	border:0;
+	color:#797979;
+	text-align:center;
+}
+
+#input_event_ratio, #input_mat_ratio{
+	width:30px;
+	text-align:right;
+}
+
+.btn_area{
+	text-align:center;
+	padding-top:20px;
+}
+
+
+
+
+#time_length_result_table td{
+	height:26px;
+	line-height:26px;
+	border:1px solid #ddd;
+}
+#time_length_result_table td select{
+	height:24px;
+	line-height:24px;
+}
+
+
+
+#capacity_result_table td{
+	height:26px;
+	line-height:26px;
+	border:1px solid #ddd;
+}
+#capacity_result_table td select{
+	height:24px;
+	line-height:24px;
+}
+
+
+#layer_capacity_result{
+	margin-top:10px;
+}
+
+
+.result_btn_area{
+	position:relative;
+	margin-top:20px;
+	text-align:center;
+}
+.result_btn_area button{
+	min-width:120px;
+	height:32px;
+}
+.result_btn_area .menu{
+	position:absolute;
+	width:118px;
+	background:#fff;
+	border:1px solid #ddd;
+	list-style:none;
+	left:917px;
+	top:-1px;
+	display:none;
+}
+.result_btn_area .menu li{
+	list-style:none;
+	height:24px;
+	line-height:24px;
+	cursor:pointer;
+}
+
+
+
+#btn_live_remote_setting{
+	position:absolute;
+	right:2px;
+	bottom:2px;
+}
+
+#layer_container .upper_layer{
+	margin-bottom:10px;
+	position:relative;
+}
+
+#layer_container #project_setting_area{
+	/*display:none;*/
+}
+#layer_container .upper_layer .btn_project_setting{
+	position:absolute;
+	right:0;
+	top:0;
+	width:110px;
+}
+
+
+
+#bandwidth_result{
+	padding-top:15px;
+}
+#bandwidth_result td{
+	border: 1px solid #ddd;
+	height:26px;
+	line-height:26px;
+	color:#797979;
+}
+#bandwidth_result td.label{
+	background:#f9f9f9;
+}
