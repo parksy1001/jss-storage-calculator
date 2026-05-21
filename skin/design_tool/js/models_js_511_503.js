@@ -8878,6 +8878,544 @@ g_camera_models.push(camera);
 }
 
 //***************************************
+//	PF-CW3231
+//	 new partner 
+//***************************************
+{
+var camera = new Camera(VIDEO_CAMERA_TYPE.NETWORK, "PF-CW3231", 1, 1, 70, 1, 0, 0);
+{
+var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_IP);
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_352_240, "352x240", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_640_360, "640x360", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_704_480, "704x480", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1280_720, "1280x720", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1920_1080, "1920x1080", 30));
+
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+
+codec.support_framerate = [1,2,3,4,5,10,15,30];
+camera.addCodec(codec);
+}
+{
+var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_IP);
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_352_240, "352x240", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_640_360, "640x360", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_704_480, "704x480", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1280_720, "1280x720", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1920_1080, "1920x1080", 30));
+
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+
+codec.support_framerate = [1,2,3,4,5,10,15,30];
+camera.addCodec(codec);
+}
+camera.init(false);
+// profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
+// 해당 사항이 function이 끝난후 UI에 자동 반영된다.
+camera.setAdjustFunction(
+function func(profiles)
+{
+//Not Need Adjust
+}
+);
+// camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
+// 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
+camera.setCalculateFunction(
+function func(camera)
+{
+var H264_BITRATE = [
+    [   256,    512,    768,   1024 ], // G2_IMAGE_RESOLUTION_CIF,    352 x  240, 0.08M
+    [   512,   1024,   1536,   2048 ], // 528x320 (HiSilicon Ref:G2_IMAGE_RESOLUTION_2CIF,   704 x  240, 0.16M)
+    [  1024,   2048,   3072,   4096 ], // G2_IMAGE_RESOLUTION_4CIF,   704 x  480, 0.32M
+    [  2048,   4096,   6144,   8192 ], // G2_IMAGE_RESOLUTION_720P,  1280 x  720, 0.88M
+    [  4096,   8192,  10240,  12288 ], // G2_IMAGE_RESOLUTION_1080P, 1920 x 1080, 1.98M
+    [   768,   1536,   2304,   3072 ], // G2_IMAGE_RESOLUTION_NHD,    640 x  360, 0.22M
+    [   250,    502,   752,    1004 ], // G2_IMAGE_RESOLUTION_QVGA,   320 x  240, 0.07M
+    [   896,   1792,   2688,   3584 ], // G2_IMAGE_RESOLUTION_VGA,    640 x  480, 0.29M
+    [  5530,   9216,  11520,  13824 ], // G2_IMAGE_RESOLUTION_3M,    2304 x 1296, 2.85M
+    [     0,      0,      0,      0 ], // Custom
+    [  2176,   4352,   6528,   8704 ], // RESOLUTION_1024_1024,                     1.00M
+    [  9216,  12288,  15360,  18432 ], // RESOLUTION_3840_2160,                     7.91M
+    [  7680,  10240,  12800,  15360 ], // RESOLUTION_2048_2048,                     4.00M
+    [   832,   1664,   2496,   3328 ], // RESOLUTION_512_512,                       0.25M
+    [  1152,   2304,   3456,   4608 ], // RESOLUTION_PAL(720x576),                  0.40M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_2560_2048,                     5.00M
+    [  4096,   8192,  10240,  12288 ], // RESOLUTION_2048_1024,                     2.00M
+    [  2176,   4352,   6528,   8704 ], // RESOLUTION_2048_512,                      1.00M
+    [  4266,   8534,  10668,  12800 ], // RESOLUTION_1536_1536,                     2.25M
+    [  1408,   2816,   4224,   5632 ], // RESOLUTION_1024_512,                      0.50M
+    [  2820,   5642,   7782,   9728 ], // RESOLUTION_1280_1024,                     1.25M
+    [   972,   1944,   2918,   3890 ], // RESOLUTION_640_512,                       0.31M
+    [  1152,   2304,   3456,   4608 ], // RESOLUTION_NTSC(720x480),                 0.33M
+    [   230,    460,    692,    922 ], // RESOLUTION_320_184,                       0.06M
+    [  9472,  12630,  15788,  18944 ], // RESOLUTION_2944_2944,                     8.58M
+    [  7832,  10444,  13056,  15666 ], // RESOLUTION_2944_1472,                     4.29M
+    [  8104,  10806,  13508,  16208 ], // RESOLUTION_2208_2208,                     4.83M
+    [  1418,   2836,   4254,   5672 ], // RESOLUTION_736_736,                       0.54M
+    [   710,   1418,   2128,   2836 ], // RESOLUTION_736_368,                       0.27M
+    [   416,    822,   1248,   1664 ], // RESOLUTION_512_256,                       0.13M
+    [  9472,  12630,  15788,  18944 ], // RESOLUTION_3008_3008,                     8.58M
+    [  4736,   6315,   7894,   9472 ], // RESOLUTION_1472_1472,                     4.29M
+    [  5632,   9386,  11734,  14080 ], // RESOLUTION_1920_1536,                     2.81M
+    [  5530,   9216,  11520,  13824 ], // RESOLUTION_2560_1024,                     2.50M
+    [   496,    992,   1488,   1984 ], // RESOLUTION_640_256,                       0.16M
+    [  2662,   5324,   7987,  10649 ], // RESOLUTION_1440_1080,                     1.56M
+    [  1728,   3456,   5184,   6912 ], // RESOLUTION_960_720,                       0.69M
+    [   496,    992,   1488,   1984 ], // RESOLUTION_480_360,                       0.16M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_3072_1728,                     5.00M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_2592_1944,                     5.00M
+    [  5632,   9386,  11734,  14080 ], // RESOLUTION_1920_1440,                     2.81M
+    [  2820,   5642,   7782,   9728 ], // RESOLUTION_1280_960,                      1.25M
+    [   230,    460,    692,    922 ], // RESOLUTION_272_240,                       0.06M
+    [  1422,   2846,   4268,   5692 ], // RESOLUTION_768_768,                       0.54M
+    [   880,   1760,   2640,   3520 ], // RESOLUTION_768_384,                      0.27M
+    [  5980,   9966,  12458,  14950 ]]; // RESOLUTION_2592_1456,                     3.60M
+
+    
+var fps_scale = [             // 10 * sqrt(fps)
+    0,
+    10, 14, 17, 20, 22, 24, 26, 28, 30, 32,
+    33, 35, 36, 37, 39, 40, 41, 42, 14, 45,
+    46, 47, 48, 49, 50, 51, 52, 53, 54, 55,
+    60, 60, 60, 60, 60, 60, 60, 60, 60, 60,
+    65, 65, 65, 65, 65, 65, 65, 65, 65, 65,
+    70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+    75, 75, 75, 75, 75, 75, 75, 75, 75, 75,
+    80, 80, 80, 80, 80, 80, 80, 80, 80, 80,
+    85, 85, 85, 85, 85, 85, 85, 85, 85, 85,
+    90, 90, 90, 90, 90, 90, 90, 90, 90, 90,
+    101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
+    111, 112, 113, 114, 115, 116, 117, 118, 119, 120];
+
+var res_bias = [
+    10, // 352x240
+    10, // 528x320
+     8, // 704x480
+     2, // 1280x720
+     0, // 1920x1080
+     8, // 640x360
+    10, // 320x240
+     8, // 640x480
+     0, // 3M
+ 	 0, // CUSTOM
+     2, // RESOLUTION_1024_1024,
+     0, // RESOLUTION_3840_2160,
+     0, // RESOLUTION_2048_2048,
+     8, // RESOLUTION_512_512,
+     8, // RESOLUTION_PAL,
+     0, // RESOLUTION_2560_2048,
+     0, // RESOLUTION_2048_1024,
+     2, // RESOLUTION_2048_512,
+     0, // RESOLUTION_1536_1536,
+     2, // RESOLUTION_1024_512,
+     2, // RESOLUTION_1280_1024,
+     8, // RESOLUTION_640_512,
+     8, // RESOLUTION_NTSC,
+    10, // RESOLUTION_320_184,
+     0, // RESOLUTION_2944_2944,
+     0, // RESOLUTION_2944_1472,
+     0, // RESOLUTION_2208_2208,
+     1, // RESOLUTION_736_736,
+     2, // RESOLUTION_736_368,
+    10, // RESOLUTION_512_256,
+     0, // RESOLUTION_3008_3008,
+     0, // RESOLUTION_1472_1472,
+     0, // RESOLUTION_1920_1536,
+     0, // RESOLUTION_2560_1024,
+     9, // RESOLUTION_640_256,
+     0, // RESOLUTION_1440_1080,
+     2, // RESOLUTION_960_720,
+    10, // RESOLUTION_480_360,
+     0, // RESOLUTION_3072_1728,
+     0, // RESOLUTION_2592_1944,
+     0, // RESOLUTION_1920_1440,
+     2, // RESOLUTION_1280_960,
+    10, // RESOLUTION_272_240,
+     1, // RESOLUTION_768_768,
+     2, // RESOLUTION_768_384,
+     0, // RESOLUTION_2592_1456,
+ ];
+
+for (profile_index in camera.current_profiles) {
+	var profile = camera.current_profiles[profile_index];
+	var codec = profile.current_codec;
+	var codecInfo = camera.getCodecInfo(codec);
+	var resolution = profile.current_resolution;
+	var quality = profile.current_quality;
+	var framerate = profile.current_framerate;
+	var max_framerate = codecInfo.getResolutionInfo(resolution).max_framerate;
+	var resIdx, qulIdx;
+	var maxBitrate;
+	
+	switch (resolution) {
+        case RESOLUTION_TYPE.RES_352_240:   resIdx =  0; break;
+        case RESOLUTION_TYPE.RES_528_320:   resIdx =  1; break;
+        case RESOLUTION_TYPE.RES_704_480:   resIdx =  2; break;
+        case RESOLUTION_TYPE.RES_1280_720:  resIdx =  3; break;
+        case RESOLUTION_TYPE.RES_1920_1080: resIdx =  4; break;
+        case RESOLUTION_TYPE.RES_640_360:   resIdx =  5; break;
+        case RESOLUTION_TYPE.RES_320_240:   resIdx =  6; break;
+        case RESOLUTION_TYPE.RES_640_480:   resIdx =  7; break;
+        case RESOLUTION_TYPE.RES_2304_1296: resIdx =  8; break;
+        case RESOLUTION_TYPE.RES_1024_1024: resIdx = 10; break;
+        case RESOLUTION_TYPE.RES_3840_2160: resIdx = 11; break;
+        case RESOLUTION_TYPE.RES_2048_2048: resIdx = 12; break;
+        case RESOLUTION_TYPE.RES_512_512:   resIdx = 13; break;
+        case RESOLUTION_TYPE.RES_720_576:   resIdx = 14; break;
+        case RESOLUTION_TYPE.RES_2560_2048: resIdx = 15; break;
+        case RESOLUTION_TYPE.RES_2048_1024: resIdx = 16; break;
+        case RESOLUTION_TYPE.RES_2048_512:  resIdx = 17; break;
+        case RESOLUTION_TYPE.RES_1536_1536: resIdx = 18; break;
+        case RESOLUTION_TYPE.RES_1024_512:  resIdx = 19; break;
+        case RESOLUTION_TYPE.RES_1280_1024: resIdx = 20; break;
+        case RESOLUTION_TYPE.RES_640_512:   resIdx = 21; break;
+        case RESOLUTION_TYPE.RES_720_480:   resIdx = 22; break;
+        case RESOLUTION_TYPE.RES_320_184:   resIdx = 23; break;
+        case RESOLUTION_TYPE.RES_2944_2944: resIdx = 24; break;
+        case RESOLUTION_TYPE.RES_2944_1472: resIdx = 25; break;
+        case RESOLUTION_TYPE.RES_2208_2208: resIdx = 26; break;
+        case RESOLUTION_TYPE.RES_736_736:   resIdx = 27; break;
+        case RESOLUTION_TYPE.RES_736_368:   resIdx = 28; break;
+        case RESOLUTION_TYPE.RES_512_256:   resIdx = 29; break;
+        case RESOLUTION_TYPE.RES_3008_3008: resIdx = 30; break;
+        case RESOLUTION_TYPE.RES_1472_1472: resIdx = 31; break;
+        case RESOLUTION_TYPE.RES_1920_1536: resIdx = 32; break;
+        case RESOLUTION_TYPE.RES_2560_1024: resIdx = 33; break;
+        case RESOLUTION_TYPE.RES_640_256:   resIdx = 34; break;
+        case RESOLUTION_TYPE.RES_1440_1080: resIdx = 35; break;
+        case RESOLUTION_TYPE.RES_960_720:   resIdx = 36; break;
+        case RESOLUTION_TYPE.RES_480_360:   resIdx = 37; break;
+        case RESOLUTION_TYPE.RES_3072_1728: resIdx = 38; break;
+        case RESOLUTION_TYPE.RES_2592_1944: resIdx = 39; break;
+        case RESOLUTION_TYPE.RES_1920_1440: resIdx = 40; break;
+        case RESOLUTION_TYPE.RES_1280_960:  resIdx = 41; break;
+        case RESOLUTION_TYPE.RES_272_240:   resIdx = 42; break;
+        case RESOLUTION_TYPE.RES_768_768:   resIdx = 43; break;
+        case RESOLUTION_TYPE.RES_768_384:   resIdx = 44; break;
+        case RESOLUTION_TYPE.RES_2592_1456: resIdx = 45; break;
+	}
+	switch (quality) {
+		case QUALITY_TYPE.QUALITY_LOW: 		 qulIdx = 0; break;
+		case QUALITY_TYPE.QUALITY_BASIC:     qulIdx = 0; break;
+		case QUALITY_TYPE.QUALITY_STANDARD:  qulIdx = 1; break;
+		case QUALITY_TYPE.QUALITY_HIGH: 	 qulIdx = 2; break;
+		case QUALITY_TYPE.QUALITY_VERY_HIGH: qulIdx = 3; break;
+	}
+	
+
+    var bitrate = 0;
+    if (isDirectIP == 1) {
+	    if (resolution == RESOLUTION_TYPE.RES_1920_1080) {
+	            H264_BITRATE[resIdx] = [4096, 6144, 8192, 10240];
+	    }
+	    else if (resolution == RESOLUTION_TYPE.RES_2048_1536) {
+	            H264_BITRATE[resIdx] = [5120, 6826, 8534, 10240];
+	    }
+	    else if (resolution == RESOLUTION_TYPE.RES_1600_1200) {
+	            H264_BITRATE[resIdx] = [3850, 6418, 8022, 9626];
+	    }
+	}
+    maxBitrate = H264_BITRATE[resIdx][qulIdx];
+
+    if(60 == framerate) {
+        if(5 <= resIdx) { // all of resolution on ONYX and 4K not support 60 ips
+            bitrate = 0;
+        }
+        else {
+            bitrate = maxBitrate * 1.5;
+        }
+    }
+    else {
+        bitrate = maxBitrate * (fps_scale[framerate] + res_bias[resIdx]) / (fps_scale[30] + res_bias[resIdx]);
+    }
+    
+    bitrate = (codec == CODEC_TYPE.CODEC_H264) ? bitrate : bitrate / 2 ;
+	
+	profile.current_bitrate = Math.round(bitrate);
+	
+}
+}
+);
+g_camera_models.push(camera);
+}
+
+
+//***************************************
+//	PF-CW3240
+//	 new partner 
+//***************************************
+{
+var camera = new Camera(VIDEO_CAMERA_TYPE.NETWORK, "PF-CW3240", 1, 1, 70, 1, 0, 0);
+{
+var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_IP);
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_352_240, "352x240", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_640_360, "640x360", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_704_480, "704x480", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1280_720, "1280x720", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1920_1080, "1920x1080", 30));
+
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+
+codec.support_framerate = [1,2,3,4,5,10,15,30];
+camera.addCodec(codec);
+}
+{
+var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_IP);
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_352_240, "352x240", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_640_360, "640x360", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_704_480, "704x480", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1280_720, "1280x720", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1920_1080, "1920x1080", 30));
+
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+
+codec.support_framerate = [1,2,3,4,5,10,15,30];
+camera.addCodec(codec);
+}
+camera.init(false);
+// profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
+// 해당 사항이 function이 끝난후 UI에 자동 반영된다.
+camera.setAdjustFunction(
+function func(profiles)
+{
+//Not Need Adjust
+}
+);
+// camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
+// 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
+camera.setCalculateFunction(
+function func(camera)
+{
+var H264_BITRATE = [
+    [   256,    512,    768,   1024 ], // G2_IMAGE_RESOLUTION_CIF,    352 x  240, 0.08M
+    [   512,   1024,   1536,   2048 ], // 528x320 (HiSilicon Ref:G2_IMAGE_RESOLUTION_2CIF,   704 x  240, 0.16M)
+    [  1024,   2048,   3072,   4096 ], // G2_IMAGE_RESOLUTION_4CIF,   704 x  480, 0.32M
+    [  2048,   4096,   6144,   8192 ], // G2_IMAGE_RESOLUTION_720P,  1280 x  720, 0.88M
+    [  4096,   8192,  10240,  12288 ], // G2_IMAGE_RESOLUTION_1080P, 1920 x 1080, 1.98M
+    [   768,   1536,   2304,   3072 ], // G2_IMAGE_RESOLUTION_NHD,    640 x  360, 0.22M
+    [   250,    502,   752,    1004 ], // G2_IMAGE_RESOLUTION_QVGA,   320 x  240, 0.07M
+    [   896,   1792,   2688,   3584 ], // G2_IMAGE_RESOLUTION_VGA,    640 x  480, 0.29M
+    [  5530,   9216,  11520,  13824 ], // G2_IMAGE_RESOLUTION_3M,    2304 x 1296, 2.85M
+    [     0,      0,      0,      0 ], // Custom
+    [  2176,   4352,   6528,   8704 ], // RESOLUTION_1024_1024,                     1.00M
+    [  9216,  12288,  15360,  18432 ], // RESOLUTION_3840_2160,                     7.91M
+    [  7680,  10240,  12800,  15360 ], // RESOLUTION_2048_2048,                     4.00M
+    [   832,   1664,   2496,   3328 ], // RESOLUTION_512_512,                       0.25M
+    [  1152,   2304,   3456,   4608 ], // RESOLUTION_PAL(720x576),                  0.40M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_2560_2048,                     5.00M
+    [  4096,   8192,  10240,  12288 ], // RESOLUTION_2048_1024,                     2.00M
+    [  2176,   4352,   6528,   8704 ], // RESOLUTION_2048_512,                      1.00M
+    [  4266,   8534,  10668,  12800 ], // RESOLUTION_1536_1536,                     2.25M
+    [  1408,   2816,   4224,   5632 ], // RESOLUTION_1024_512,                      0.50M
+    [  2820,   5642,   7782,   9728 ], // RESOLUTION_1280_1024,                     1.25M
+    [   972,   1944,   2918,   3890 ], // RESOLUTION_640_512,                       0.31M
+    [  1152,   2304,   3456,   4608 ], // RESOLUTION_NTSC(720x480),                 0.33M
+    [   230,    460,    692,    922 ], // RESOLUTION_320_184,                       0.06M
+    [  9472,  12630,  15788,  18944 ], // RESOLUTION_2944_2944,                     8.58M
+    [  7832,  10444,  13056,  15666 ], // RESOLUTION_2944_1472,                     4.29M
+    [  8104,  10806,  13508,  16208 ], // RESOLUTION_2208_2208,                     4.83M
+    [  1418,   2836,   4254,   5672 ], // RESOLUTION_736_736,                       0.54M
+    [   710,   1418,   2128,   2836 ], // RESOLUTION_736_368,                       0.27M
+    [   416,    822,   1248,   1664 ], // RESOLUTION_512_256,                       0.13M
+    [  9472,  12630,  15788,  18944 ], // RESOLUTION_3008_3008,                     8.58M
+    [  4736,   6315,   7894,   9472 ], // RESOLUTION_1472_1472,                     4.29M
+    [  5632,   9386,  11734,  14080 ], // RESOLUTION_1920_1536,                     2.81M
+    [  5530,   9216,  11520,  13824 ], // RESOLUTION_2560_1024,                     2.50M
+    [   496,    992,   1488,   1984 ], // RESOLUTION_640_256,                       0.16M
+    [  2662,   5324,   7987,  10649 ], // RESOLUTION_1440_1080,                     1.56M
+    [  1728,   3456,   5184,   6912 ], // RESOLUTION_960_720,                       0.69M
+    [   496,    992,   1488,   1984 ], // RESOLUTION_480_360,                       0.16M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_3072_1728,                     5.00M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_2592_1944,                     5.00M
+    [  5632,   9386,  11734,  14080 ], // RESOLUTION_1920_1440,                     2.81M
+    [  2820,   5642,   7782,   9728 ], // RESOLUTION_1280_960,                      1.25M
+    [   230,    460,    692,    922 ], // RESOLUTION_272_240,                       0.06M
+    [  1422,   2846,   4268,   5692 ], // RESOLUTION_768_768,                       0.54M
+    [   880,   1760,   2640,   3520 ], // RESOLUTION_768_384,                      0.27M
+    [  5980,   9966,  12458,  14950 ]]; // RESOLUTION_2592_1456,                     3.60M
+
+    
+var fps_scale = [             // 10 * sqrt(fps)
+    0,
+    10, 14, 17, 20, 22, 24, 26, 28, 30, 32,
+    33, 35, 36, 37, 39, 40, 41, 42, 14, 45,
+    46, 47, 48, 49, 50, 51, 52, 53, 54, 55,
+    60, 60, 60, 60, 60, 60, 60, 60, 60, 60,
+    65, 65, 65, 65, 65, 65, 65, 65, 65, 65,
+    70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+    75, 75, 75, 75, 75, 75, 75, 75, 75, 75,
+    80, 80, 80, 80, 80, 80, 80, 80, 80, 80,
+    85, 85, 85, 85, 85, 85, 85, 85, 85, 85,
+    90, 90, 90, 90, 90, 90, 90, 90, 90, 90,
+    101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
+    111, 112, 113, 114, 115, 116, 117, 118, 119, 120];
+
+var res_bias = [
+    10, // 352x240
+    10, // 528x320
+     8, // 704x480
+     2, // 1280x720
+     0, // 1920x1080
+     8, // 640x360
+    10, // 320x240
+     8, // 640x480
+     0, // 3M
+ 	 0, // CUSTOM
+     2, // RESOLUTION_1024_1024,
+     0, // RESOLUTION_3840_2160,
+     0, // RESOLUTION_2048_2048,
+     8, // RESOLUTION_512_512,
+     8, // RESOLUTION_PAL,
+     0, // RESOLUTION_2560_2048,
+     0, // RESOLUTION_2048_1024,
+     2, // RESOLUTION_2048_512,
+     0, // RESOLUTION_1536_1536,
+     2, // RESOLUTION_1024_512,
+     2, // RESOLUTION_1280_1024,
+     8, // RESOLUTION_640_512,
+     8, // RESOLUTION_NTSC,
+    10, // RESOLUTION_320_184,
+     0, // RESOLUTION_2944_2944,
+     0, // RESOLUTION_2944_1472,
+     0, // RESOLUTION_2208_2208,
+     1, // RESOLUTION_736_736,
+     2, // RESOLUTION_736_368,
+    10, // RESOLUTION_512_256,
+     0, // RESOLUTION_3008_3008,
+     0, // RESOLUTION_1472_1472,
+     0, // RESOLUTION_1920_1536,
+     0, // RESOLUTION_2560_1024,
+     9, // RESOLUTION_640_256,
+     0, // RESOLUTION_1440_1080,
+     2, // RESOLUTION_960_720,
+    10, // RESOLUTION_480_360,
+     0, // RESOLUTION_3072_1728,
+     0, // RESOLUTION_2592_1944,
+     0, // RESOLUTION_1920_1440,
+     2, // RESOLUTION_1280_960,
+    10, // RESOLUTION_272_240,
+     1, // RESOLUTION_768_768,
+     2, // RESOLUTION_768_384,
+     0, // RESOLUTION_2592_1456,
+ ];
+
+for (profile_index in camera.current_profiles) {
+	var profile = camera.current_profiles[profile_index];
+	var codec = profile.current_codec;
+	var codecInfo = camera.getCodecInfo(codec);
+	var resolution = profile.current_resolution;
+	var quality = profile.current_quality;
+	var framerate = profile.current_framerate;
+	var max_framerate = codecInfo.getResolutionInfo(resolution).max_framerate;
+	var resIdx, qulIdx;
+	var maxBitrate;
+	
+	switch (resolution) {
+        case RESOLUTION_TYPE.RES_352_240:   resIdx =  0; break;
+        case RESOLUTION_TYPE.RES_528_320:   resIdx =  1; break;
+        case RESOLUTION_TYPE.RES_704_480:   resIdx =  2; break;
+        case RESOLUTION_TYPE.RES_1280_720:  resIdx =  3; break;
+        case RESOLUTION_TYPE.RES_1920_1080: resIdx =  4; break;
+        case RESOLUTION_TYPE.RES_640_360:   resIdx =  5; break;
+        case RESOLUTION_TYPE.RES_320_240:   resIdx =  6; break;
+        case RESOLUTION_TYPE.RES_640_480:   resIdx =  7; break;
+        case RESOLUTION_TYPE.RES_2304_1296: resIdx =  8; break;
+        case RESOLUTION_TYPE.RES_1024_1024: resIdx = 10; break;
+        case RESOLUTION_TYPE.RES_3840_2160: resIdx = 11; break;
+        case RESOLUTION_TYPE.RES_2048_2048: resIdx = 12; break;
+        case RESOLUTION_TYPE.RES_512_512:   resIdx = 13; break;
+        case RESOLUTION_TYPE.RES_720_576:   resIdx = 14; break;
+        case RESOLUTION_TYPE.RES_2560_2048: resIdx = 15; break;
+        case RESOLUTION_TYPE.RES_2048_1024: resIdx = 16; break;
+        case RESOLUTION_TYPE.RES_2048_512:  resIdx = 17; break;
+        case RESOLUTION_TYPE.RES_1536_1536: resIdx = 18; break;
+        case RESOLUTION_TYPE.RES_1024_512:  resIdx = 19; break;
+        case RESOLUTION_TYPE.RES_1280_1024: resIdx = 20; break;
+        case RESOLUTION_TYPE.RES_640_512:   resIdx = 21; break;
+        case RESOLUTION_TYPE.RES_720_480:   resIdx = 22; break;
+        case RESOLUTION_TYPE.RES_320_184:   resIdx = 23; break;
+        case RESOLUTION_TYPE.RES_2944_2944: resIdx = 24; break;
+        case RESOLUTION_TYPE.RES_2944_1472: resIdx = 25; break;
+        case RESOLUTION_TYPE.RES_2208_2208: resIdx = 26; break;
+        case RESOLUTION_TYPE.RES_736_736:   resIdx = 27; break;
+        case RESOLUTION_TYPE.RES_736_368:   resIdx = 28; break;
+        case RESOLUTION_TYPE.RES_512_256:   resIdx = 29; break;
+        case RESOLUTION_TYPE.RES_3008_3008: resIdx = 30; break;
+        case RESOLUTION_TYPE.RES_1472_1472: resIdx = 31; break;
+        case RESOLUTION_TYPE.RES_1920_1536: resIdx = 32; break;
+        case RESOLUTION_TYPE.RES_2560_1024: resIdx = 33; break;
+        case RESOLUTION_TYPE.RES_640_256:   resIdx = 34; break;
+        case RESOLUTION_TYPE.RES_1440_1080: resIdx = 35; break;
+        case RESOLUTION_TYPE.RES_960_720:   resIdx = 36; break;
+        case RESOLUTION_TYPE.RES_480_360:   resIdx = 37; break;
+        case RESOLUTION_TYPE.RES_3072_1728: resIdx = 38; break;
+        case RESOLUTION_TYPE.RES_2592_1944: resIdx = 39; break;
+        case RESOLUTION_TYPE.RES_1920_1440: resIdx = 40; break;
+        case RESOLUTION_TYPE.RES_1280_960:  resIdx = 41; break;
+        case RESOLUTION_TYPE.RES_272_240:   resIdx = 42; break;
+        case RESOLUTION_TYPE.RES_768_768:   resIdx = 43; break;
+        case RESOLUTION_TYPE.RES_768_384:   resIdx = 44; break;
+        case RESOLUTION_TYPE.RES_2592_1456: resIdx = 45; break;
+	}
+	switch (quality) {
+		case QUALITY_TYPE.QUALITY_LOW: 		 qulIdx = 0; break;
+		case QUALITY_TYPE.QUALITY_BASIC:     qulIdx = 0; break;
+		case QUALITY_TYPE.QUALITY_STANDARD:  qulIdx = 1; break;
+		case QUALITY_TYPE.QUALITY_HIGH: 	 qulIdx = 2; break;
+		case QUALITY_TYPE.QUALITY_VERY_HIGH: qulIdx = 3; break;
+	}
+	
+
+    var bitrate = 0;
+    if (isDirectIP == 1) {
+	    if (resolution == RESOLUTION_TYPE.RES_1920_1080) {
+	            H264_BITRATE[resIdx] = [4096, 6144, 8192, 10240];
+	    }
+	    else if (resolution == RESOLUTION_TYPE.RES_2048_1536) {
+	            H264_BITRATE[resIdx] = [5120, 6826, 8534, 10240];
+	    }
+	    else if (resolution == RESOLUTION_TYPE.RES_1600_1200) {
+	            H264_BITRATE[resIdx] = [3850, 6418, 8022, 9626];
+	    }
+	}
+    maxBitrate = H264_BITRATE[resIdx][qulIdx];
+
+    if(60 == framerate) {
+        if(5 <= resIdx) { // all of resolution on ONYX and 4K not support 60 ips
+            bitrate = 0;
+        }
+        else {
+            bitrate = maxBitrate * 1.5;
+        }
+    }
+    else {
+        bitrate = maxBitrate * (fps_scale[framerate] + res_bias[resIdx]) / (fps_scale[30] + res_bias[resIdx]);
+    }
+    
+    bitrate = (codec == CODEC_TYPE.CODEC_H264) ? bitrate : bitrate / 2 ;
+	
+	profile.current_bitrate = Math.round(bitrate);
+	
+}
+}
+);
+g_camera_models.push(camera);
+}
+
+
+//***************************************
 //	PF-CW4164
 //	 new partner 
 //***************************************
