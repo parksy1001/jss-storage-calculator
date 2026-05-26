@@ -4860,7 +4860,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_PF-CA4031", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4031", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
@@ -4916,7 +4916,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_PF-CA4032", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4032", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
@@ -4972,7 +4972,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_PF-CA4040 / Analog_PF-CA4040A", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4040 / PF-CA4040A", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
@@ -5028,7 +5028,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_PF-CA4041", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4041", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
@@ -11151,7 +11151,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_D1 Camera", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog D1 Camera", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_704_480, "704x480", 30));
@@ -11207,7 +11207,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_960H Camera", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog 960H Camera", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_960_480, "960x480", 30));
@@ -11263,7 +11263,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_1MP Camera", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog 1MP Camera", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1280_720, "1280x720", 30));
@@ -11319,7 +11319,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_2MP Camera", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog 2MP Camera", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1920_1080, "1920x1080", 30));
@@ -11375,7 +11375,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_3MP Camera", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog 3MP Camera", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2304_1296, "2304x1296", 30));
@@ -11431,7 +11431,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_4MP Camera", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog 4MP Camera", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2560_1440, "2560x1440", 30));
@@ -11487,7 +11487,7 @@ g_camera_models.push(camera);
 //	 new partner 
 //***************************************
 {
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog_5MP Camera", 1, 0, 0, 1, 0, 0);
+var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "Analog 5MP Camera", 1, 0, 0, 1, 0, 0);
 {
 var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
 codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
