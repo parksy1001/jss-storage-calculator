@@ -4859,225 +4859,225 @@ g_camera_models.push(camera);
 //	PF-CA4031
 //	 new partner 
 //***************************************
-{
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4031", 1, 0, 0, 1, 0, 0);
-{
-var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
+// {
+// var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4031", 1, 0, 0, 1, 0, 0);
+// {
+// var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
 
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
 
-codec.support_framerate = [1,2,3,4,5,10,12];
-camera.addCodec(codec);
-}
-{
-var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
+// codec.support_framerate = [1,2,3,4,5,10,12];
+// camera.addCodec(codec);
+// }
+// {
+// var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
 
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
 
-codec.support_framerate = [1,2,3,4,5,10,15,30];
-camera.addCodec(codec);
-}
-camera.init(false);
-// profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
-// 해당 사항이 function이 끝난후 UI에 자동 반영된다.
-camera.setAdjustFunction(
-function func(profiles)
-{
-//Adjust Camea default
-}
-);
-// camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
-// 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
-camera.setCalculateFunction(
-function func(camera)
-{
-//Analog camera is not calculate bitrate
-}
-);
-g_camera_models.push(camera);
-}
+// codec.support_framerate = [1,2,3,4,5,10,15,30];
+// camera.addCodec(codec);
+// }
+// camera.init(false);
+// // profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
+// // 해당 사항이 function이 끝난후 UI에 자동 반영된다.
+// camera.setAdjustFunction(
+// function func(profiles)
+// {
+// //Adjust Camea default
+// }
+// );
+// // camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
+// // 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
+// camera.setCalculateFunction(
+// function func(camera)
+// {
+// //Analog camera is not calculate bitrate
+// }
+// );
+// g_camera_models.push(camera);
+// }
 
 //***************************************
 //	PF-CA4032
 //	 new partner 
 //***************************************
-{
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4032", 1, 0, 0, 1, 0, 0);
-{
-var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
+// {
+// var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4032", 1, 0, 0, 1, 0, 0);
+// {
+// var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
 
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
 
-codec.support_framerate = [1,2,3,4,5,10,15,30];
-camera.addCodec(codec);
-}
-{
-var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
+// codec.support_framerate = [1,2,3,4,5,10,15,30];
+// camera.addCodec(codec);
+// }
+// {
+// var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
 
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
 
-codec.support_framerate = [1,2,3,4,5,6,7,8,9,10,15,30];
-camera.addCodec(codec);
-}
-camera.init(false);
-// profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
-// 해당 사항이 function이 끝난후 UI에 자동 반영된다.
-camera.setAdjustFunction(
-function func(profiles)
-{
-//Adjust Camea default
-}
-);
-// camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
-// 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
-camera.setCalculateFunction(
-function func(camera)
-{
-//Analog camera is not calculate bitrate
-}
-);
-g_camera_models.push(camera);
-}
+// codec.support_framerate = [1,2,3,4,5,6,7,8,9,10,15,30];
+// camera.addCodec(codec);
+// }
+// camera.init(false);
+// // profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
+// // 해당 사항이 function이 끝난후 UI에 자동 반영된다.
+// camera.setAdjustFunction(
+// function func(profiles)
+// {
+// //Adjust Camea default
+// }
+// );
+// // camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
+// // 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
+// camera.setCalculateFunction(
+// function func(camera)
+// {
+// //Analog camera is not calculate bitrate
+// }
+// );
+// g_camera_models.push(camera);
+// }
 
 //***************************************
 //	PF-CA4040 / PF-CA4040A
 //	 new partner 
 //***************************************
-{
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4040 / PF-CA4040A", 1, 0, 0, 1, 0, 0);
-{
-var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
+// {
+// var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4040 / PF-CA4040A", 1, 0, 0, 1, 0, 0);
+// {
+// var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
 
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
 
-codec.support_framerate = [1,2,3,4,5,10,15,20];
-camera.addCodec(codec);
-}
-{
-var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
+// codec.support_framerate = [1,2,3,4,5,10,15,20];
+// camera.addCodec(codec);
+// }
+// {
+// var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
 
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
 
-codec.support_framerate = [1,2,3,4,5,10,15,30];
-camera.addCodec(codec);
-}
-camera.init(false);
-// profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
-// 해당 사항이 function이 끝난후 UI에 자동 반영된다.
-camera.setAdjustFunction(
-function func(profiles)
-{
-//Adjust Camea default
-}
-);
-// camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
-// 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
-camera.setCalculateFunction(
-function func(camera)
-{
-//Analog camera is not calculate bitrate
-}
-);
-g_camera_models.push(camera);
-}
+// codec.support_framerate = [1,2,3,4,5,10,15,30];
+// camera.addCodec(codec);
+// }
+// camera.init(false);
+// // profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
+// // 해당 사항이 function이 끝난후 UI에 자동 반영된다.
+// camera.setAdjustFunction(
+// function func(profiles)
+// {
+// //Adjust Camea default
+// }
+// );
+// // camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
+// // 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
+// camera.setCalculateFunction(
+// function func(camera)
+// {
+// //Analog camera is not calculate bitrate
+// }
+// );
+// g_camera_models.push(camera);
+// }
 
 //***************************************
 //	PF-CA4041
 //	 new partner 
 //***************************************
-{
-var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4041", 1, 0, 0, 1, 0, 0);
-{
-var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
+// {
+// var camera = new Camera(VIDEO_CAMERA_TYPE.ANALOG, "PF-CA4041", 1, 0, 0, 1, 0, 0);
+// {
+// var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
 
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
 
-codec.support_framerate = [1,2,3,4,5,10,15,30];
-camera.addCodec(codec);
-}
-{
-var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
-codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
+// codec.support_framerate = [1,2,3,4,5,10,15,30];
+// camera.addCodec(codec);
+// }
+// {
+// var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_NTSC);
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2592_1944, "2592x1944", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_STANDARD, "Standard", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_HIGH, "High", 30));
+// codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_VERY_HIGH, "Very High", 30));
 
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
-codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+// codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
 
-codec.support_framerate = [1,2,3,4,5,10,15,30];
-camera.addCodec(codec);
-}
-camera.init(false);
-// profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
-// 해당 사항이 function이 끝난후 UI에 자동 반영된다.
-camera.setAdjustFunction(
-function func(profiles)
-{
-//Adjust Camea default
-}
-);
-// camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
-// 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
-camera.setCalculateFunction(
-function func(camera)
-{
-//Analog camera is not calculate bitrate
-}
-);
-g_camera_models.push(camera);
-}
+// codec.support_framerate = [1,2,3,4,5,10,15,30];
+// camera.addCodec(codec);
+// }
+// camera.init(false);
+// // profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
+// // 해당 사항이 function이 끝난후 UI에 자동 반영된다.
+// camera.setAdjustFunction(
+// function func(profiles)
+// {
+// //Adjust Camea default
+// }
+// );
+// // camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
+// // 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
+// camera.setCalculateFunction(
+// function func(camera)
+// {
+// //Analog camera is not calculate bitrate
+// }
+// );
+// g_camera_models.push(camera);
+// }
 
 //***************************************
 //	PF-CA451
