@@ -21650,9 +21650,9 @@ g_video_recoder_models.push(vr);
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(1280x720)";
                 }
                 break;
-            case 2:
+            case 2: 
                 for(var profileIndex = 0; profileIndex < 6; profileIndex++) {
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(720x480)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(640x360)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1280x720)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(1920x1080)";
                 }
@@ -21666,15 +21666,15 @@ g_video_recoder_models.push(vr);
                 break;
             case 4:
                 for(var profileIndex = 0; profileIndex < 6; profileIndex++) {
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(720x480)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(640x360)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1280x720)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(2560x1440)";
                 }
                 break;
             case 5:
                 for(var profileIndex = 0; profileIndex < 6; profileIndex++) {
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(720x480)";
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1920x1080)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(640x480)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1280x960)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(2560x1920)";
                 }
                 break;
@@ -22342,7 +22342,7 @@ vr.setCalculateCameraSlot(function func(Resolution, ips) {
                 break;
             case 2:
                 for(var profileIndex = 0; profileIndex < 6; profileIndex++) {
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(720x480)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(640x360)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1280x720)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(1920x1080)";
                 }
@@ -22356,15 +22356,15 @@ vr.setCalculateCameraSlot(function func(Resolution, ips) {
                 break;
             case 4:
                 for(var profileIndex = 0; profileIndex < 6; profileIndex++) {
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(720x480)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(640x360)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1280x720)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(2560x1440)";
                 }
                 break;
             case 5:
                 for(var profileIndex = 0; profileIndex < 6; profileIndex++) {
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(720x480)";
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1920x1080)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(640x480)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1280x960)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(2560x1920)";
                 }
                 break;
@@ -23030,7 +23030,7 @@ vr.setCalculateCameraSlot(function func(Resolution, ips) {
                 break;
             case 2:
                 for(var profileIndex = 0; profileIndex < 6; profileIndex++) {
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(720x480)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(640x360)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1280x720)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(1920x1080)";
                 }
@@ -23044,16 +23044,16 @@ vr.setCalculateCameraSlot(function func(Resolution, ips) {
                 break;
             case 4:
                 for(var profileIndex = 0; profileIndex < 6; profileIndex++) {
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(720x480)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(640x360)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1280x720)";
                     document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(2560x1440)";
                 }
                 break;
             case 5:
                 for(var profileIndex = 0; profileIndex < 6; profileIndex++) {
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(720x480)";
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1920x1080)";
-                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(2560x1920)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[0].text = RESOLUTION_TYPE_STRING[resolutions[0]]  + "(640x480)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[1].text = RESOLUTION_TYPE_STRING[resolutions[1]]  + "(1280x960)";
+                    document.getElementById("select_" + STREAM_CONTROL_NAMES[profileIndex] + "_resolution").options[2].text = RESOLUTION_TYPE_STRING[resolutions[2]]  + "(1280x1920)";
                 }
                 break;
             default:
