@@ -4855,6 +4855,336 @@ for (profile_index in camera.current_profiles) {
 );
 g_camera_models.push(camera);
 }
+
+//***************************************
+//	JS-CX4264
+//	 new partner 
+//***************************************
+{
+var camera = new Camera(VIDEO_CAMERA_TYPE.NETWORK, "JS-CX4264", 1, 1, 70, 1, 0, 0);
+{
+var codec = new CodecInfo(CODEC_TYPE.CODEC_H264, "H264", VIDEO_FORMAT_TYPE.FORMAT_IP);
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_880_880, "880x880", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1760_1760, "1760x1760", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2640_2640, "2640x2640", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_3520_1760, "3520x1760", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_3520_3520, "3520x3520", 30));
+
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+
+codec.support_framerate = [1,2,3,4,5,10,15,30];
+camera.addCodec(codec);
+}
+{
+var codec = new CodecInfo(CODEC_TYPE.CODEC_H265, "H265", VIDEO_FORMAT_TYPE.FORMAT_IP);
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_880_880, "880x880", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_1760_1760, "1760x1760", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_2640_2640, "2640x2640", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_3520_1760, "3520x1760", 30));
+codec.addResolution(new ResolutionInfo(RESOLUTION_TYPE.RES_3520_3520, "3520x3520", 30));
+
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_BASIC, "Basic"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_STANDARD, "Standard"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_HIGH, "High"));
+codec.addQuality(new QualityInfo(QUALITY_TYPE.QUALITY_VERY_HIGH, "Very High"));
+
+codec.support_framerate = [1,2,3,4,5,10,15,30];
+camera.addCodec(codec);
+}
+camera.init(false);
+// profiles는 개별 profile struct의 array이다. 각 profile의 current를 변경하면
+// 해당 사항이 function이 끝난후 UI에 자동 반영된다.
+camera.setAdjustFunction(
+function func(profiles)
+{
+//Not Need Adjust
+}
+);
+// camera는 현재 bitrate를 알고자 하는 카메라이다. 해당 오브젝트 내부정보를 가지고
+// 각 Profile의 current setting에 따라 current_bitrate를 계산해서 넣은뒤 반환해 주면 된다.
+camera.setCalculateFunction(
+function func(camera)
+{
+var H264_BITRATE = [
+    [   256,    512,    768,   1024 ], // G2_IMAGE_RESOLUTION_CIF,  ( 352 x  240),  0.08M
+    [   512,   1024,   1536,   2048 ], // G2_IMAGE_RESOLUTION_2CIF, ( 528 x  320)   0.16M -- ref HiSilicon
+    [  1024,   2048,   3072,   4096 ], // G2_IMAGE_RESOLUTION_4CIF, ( 704 x  480),  0.32M
+    [  2048,   4096,   6144,   8192 ], // G2_IMAGE_RESOLUTION_720P, (1280 x  720),  0.88M
+    [  4096,   8192,  10240,  12288 ], // G2_IMAGE_RESOLUTION_1080P,(1920 x 1080),  1.98M
+    [   768,   1536,   2304,   3072 ], // G2_IMAGE_RESOLUTION_NHD,  ( 640 x  360),  0.22M
+    [   250,    502,   752,    1004 ], // G2_IMAGE_RESOLUTION_QVGA, ( 320 x  240),  0.07M
+    [   896,   1792,   2688,   3584 ], // G2_IMAGE_RESOLUTION_VGA,  ( 640 x  480),  0.29M
+    [  5530,   9216,  11520,  13824 ], // G2_IMAGE_RESOLUTION_3M,   (2304 x 1296),  2.85M
+    [     0,      0,      0,      0 ], // Custom
+    [  2176,   4352,   6528,   8704 ], // RESOLUTION_1024_1024,     1.00M
+    [  9216,  12288,  15360,  18432 ], // RESOLUTION_3840_2160,     7.91M
+    [  7680,  10240,  12800,  15360 ], // RESOLUTION_2048_2048,     4.00M
+    [   832,   1664,   2496,   3328 ], // RESOLUTION_512_512,       0.25M
+    [  1152,   2304,   3456,   4608 ], // RESOLUTION_PAL(720x576),  0.40M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_2560_2048,     5.00M
+    [  4096,   8192,  10240,  12288 ], // RESOLUTION_2048_1024,     2.00M
+    [  2176,   4352,   6528,   8704 ], // RESOLUTION_2048_512,      1.00M
+    [  4266,   8534,  10668,  12800 ], // RESOLUTION_1536_1536,     2.25M
+    [  1408,   2816,   4224,   5632 ], // RESOLUTION_1024_512,      0.50M
+    [  2820,   5642,   7782,   9728 ], // RESOLUTION_1280_1024,     1.25M
+    [   972,   1944,   2918,   3890 ], // RESOLUTION_640_512,       0.31M
+    [  1152,   2304,   3456,   4608 ], // RESOLUTION_NTSC(720x480), 0.33M
+    [   230,    460,    692,    922 ], // RESOLUTION_320_184,       0.06M
+    [  9472,  12630,  15788,  18944 ], // RESOLUTION_2944_2944,     8.58M
+    [  7832,  10444,  13056,  15666 ], // RESOLUTION_2944_1472,     4.29M
+    [  8104,  10806,  13508,  16208 ], // RESOLUTION_2208_2208,     4.83M
+    [  1418,   2836,   4254,   5672 ], // RESOLUTION_736_736,       0.54M
+    [   710,   1418,   2128,   2836 ], // RESOLUTION_736_368,       0.27M
+    [   416,    822,   1248,   1664 ], // RESOLUTION_512_256,       0.13M
+    [  9472,  12630,  15788,  18944 ], // RESOLUTION_3008_3008,     8.58M
+    [  4736,   6315,   7894,   9472 ], // RESOLUTION_1472_1472,     4.29M
+    [  5632,   9386,  11734,  14080 ], // RESOLUTION_1920_1536,     2.81M
+    [  5530,   9216,  11520,  13824 ], // RESOLUTION_2560_1024,     2.50M
+    [   496,    992,   1488,   1984 ], // RESOLUTION_640_256,       0.16M
+    [  2662,   5324,   7987,  10649 ], // RESOLUTION_1440_1080,     1.56M
+    [  1728,   3456,   5184,   6912 ], // RESOLUTION_960_720,       0.69M
+    [   496,    992,   1488,   1984 ], // RESOLUTION_480_360,       0.16M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_3072_1728,     5.00M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_2592_1944,     5.00M
+    [  5632,   9386,  11734,  14080 ], // RESOLUTION_1920_1440,     2.81M
+    [  2820,   5642,   7782,   9728 ], // RESOLUTION_1280_960,      1.25M
+    [   230,    460,    692,    922 ], // RESOLUTION_272_240,       0.06M
+    [  1422,   2848,   4268,   5692 ], // RESOLUTION_768_768,       0.54M
+    [   880,   1760,   2640,   3520 ], // RESOLUTION_768_384,       0.27M
+    [  5980,   9966,  12458,  14950 ], // RESOLUTION_2592_1456,     3.60M
+    [  3924,   7850,   9814,  11776 ], // RESOLUTION_1600_1200,     1.83M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_3072_2048,     6M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_3328_1872,     5.94M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_3200_1800,     5.00M
+    [  5980,   9966,  12458,  14950 ], // RESOLUTION_2560_1440,     3.60M
+    [  7680,  10240,  12800,  15360 ], // RESOLUTION_2688_1520,     4.09M
+    [  1418,   2836,   4254,   5672 ], // RESOLUTION_880_880,       0.74M
+    [  5632,   9386,  11734,  14080 ], // RESOLUTION_1760_1760,     2.95M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_2640_2640,     6.65M
+    [  8192,  10922,  13654,  16384 ], // RESOLUTION_3520_1760,     5.91M
+    [  9472,  12630,  15788,  18944 ], // RESOLUTION_3520_3520,     11.82M
+    [   708,   1418,   2128,   2836 ], // RESOLUTION_880_440,       0.36M
+    [  4096,   8192,  10240,  12288 ], // RESOLUTION_1440_1440,     2.07M
+]; 
+
+var H265_BITRATE = [
+    [   128,    256,    384,    512 ], // G2_IMAGE_RESOLUTION_CIF,  ( 352 x  240),
+    [   256,    512,    768,   1024 ], // G2_IMAGE_RESOLUTION_2CIF, ( 528 x  320)  
+    [   512,   1024,   1536,   2048 ], // G2_IMAGE_RESOLUTION_4CIF, ( 704 x  480),
+    [  1024,   2048,   3072,   4096 ], // G2_IMAGE_RESOLUTION_720P, (1280 x  720),
+    [  2048,   4096,   5120,   6144 ], // G2_IMAGE_RESOLUTION_1080P,(1920 x 1080),
+    [   384,    768,   1152,   1536 ], // G2_IMAGE_RESOLUTION_NHD,  ( 640 x  360),
+    [   125,    251,    376,    502 ], // G2_IMAGE_RESOLUTION_QVGA, ( 320 x  240),
+    [   448,    896,   1344,   1792 ], // G2_IMAGE_RESOLUTION_VGA,  ( 640 x  480),
+    [  2765,   4608,   5760,   6912 ], // G2_IMAGE_RESOLUTION_3M,   (2304 x 1296),
+    [     0,      0,      0,      0 ], // Custom
+    [  1088,   2176,   3264,   4352 ], // RESOLUTION_1024_1024,
+    [  4608,   6144,   7680,   9216 ], // RESOLUTION_3840_2160,
+    [  3840,   5120,   6400,   7680 ], // RESOLUTION_2048_2048,
+    [   416,    832,   1248,   1664 ], // RESOLUTION_512_512,
+    [   576,   1152,   1728,   2304 ], // RESOLUTION_PAL(720x576),
+    [  4096,   5461,   6827,   8192 ], // RESOLUTION_2560_2048,
+    [  2048,   4096,   5120,   6144 ], // RESOLUTION_2048_1024,
+    [  1088,   2176,   3264,   4352 ], // RESOLUTION_2048_512,
+    [  2133,   4267,   5334,   6400 ], // RESOLUTION_1536_1536,
+    [   704,   1408,   2112,   2816 ], // RESOLUTION_1024_512,
+    [  1410,   2821,   3891,   4864 ], // RESOLUTION_1280_1024,
+    [   486,    972,   1459,   1945 ], // RESOLUTION_640_512,
+    [   576,   1152,   1728,   2304 ], // RESOLUTION_NTSC(720x480),
+    [   115,    230,    346,    461 ], // RESOLUTION_320_184,
+    [  4736,   6315,   7894,   9472 ], // RESOLUTION_2944_2944,
+    [  3916,   5222,   6528,   7833 ], // RESOLUTION_2944_1472,
+    [  4052,   5403,   6754,   8104 ], // RESOLUTION_2208_2208,
+    [   709,   1418,   2127,   2836 ], // RESOLUTION_736_736,
+    [   355,    709,   1064,   1418 ], // RESOLUTION_736_368,
+    [   208,    411,    624,    832 ], // RESOLUTION_512_256,
+    [  4736,   6315,   7894,   9472 ], // RESOLUTION_3008_3008,
+    [  2368,   3157,   3947,   4736 ], // RESOLUTION_1472_1472,
+    [  2816,   4693,   5867,   7040 ], // RESOLUTION_1920_1536,
+    [  2765,   4608,   5760,   6912 ], // RESOLUTION_2560_1024,
+    [   248,    496,    744,    992 ], // RESOLUTION_640_256,
+    [  1331,   2662,   3993,   5324 ], // RESOLUTION_1440_1080,
+    [   864,   1728,   2592,   3456 ], // RESOLUTION_960_720,
+    [   248,    496,    744,    992 ], // RESOLUTION_480_360,
+    [  4096,   5461,   6827,   8192 ], // RESOLUTION_3072_1728,
+    [  4096,   5461,   6827,   8192 ], // RESOLUTION_2592_1944,
+    [  2816,   4693,   5867,   7040 ], // RESOLUTION_1920_1440,
+    [  1410,   2821,   3891,   4864 ], // RESOLUTION_1280_960,
+    [   115,    230,    346,    461 ], // RESOLUTION_272_240,
+    [   711,   1424,   2134,   2846 ], // RESOLUTION_768_768,
+    [   440,   1760,    880,   1760 ],  // RESOLUTION_768_384,
+    [  2990,   4983,   6229,   7475 ], // RESOLUTION_2592_1456,
+    [  1962,   3925,   4907,   5888 ], // RESOLUTION_1600_1200,
+    [  4096,   5461,   6827,   8192 ], // RESOLUTION_3072_2048,
+    [  4096,   5461,   6827,   8192 ], // RESOLUTION_3328_1872,
+    [  4096,   5461,   6827,   8192 ], // RESOLUTION_3200_1800,
+    [  2990,   4983,   6229,   7475 ], // RESOLUTION_2560_1440,
+    [  3840,   5120,   6400,   7680 ], // RESOLUTION_2688_1520,
+    [   709,   1418,   2127,   2836 ], // RESOLUTION_880_880,
+    [  2816,   4693,   5867,   7040 ], // RESOLUTION_1760_1760,
+    [  4096,   5461,   6827,   8192 ], // RESOLUTION_2640_2640,
+    [  4096,   5461,   6827,   8192 ], // RESOLUTION_3520_1760,
+    [  4736,   6315,   7894,   9472 ], // RESOLUTION_3520_3520,
+    [   354,    709,   1064,   1418 ], // RESOLUTION_880_440,
+    [  2048,   4096,   5120,   6144 ], // RESOLUTION_1440_1440,
+];
+
+var fps_scale = [             // 10 * sqrt(fps)
+    0,
+    10, 14, 17, 20, 22, 24, 26, 28, 30, 32,
+    33, 35, 36, 37, 39, 40, 41, 42, 14, 45,
+    46, 47, 48, 49, 50, 51, 52, 53, 54, 55,
+    60, 60, 60, 60, 60, 60, 60, 60, 60, 60,
+    65, 65, 65, 65, 65, 65, 65, 65, 65, 65,
+    70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+    75, 75, 75, 75, 75, 75, 75, 75, 75, 75,
+    80, 80, 80, 80, 80, 80, 80, 80, 80, 80,
+    85, 85, 85, 85, 85, 85, 85, 85, 85, 85,
+    90, 90, 90, 90, 90, 90, 90, 90, 90, 90,
+    101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
+    111, 112, 113, 114, 115, 116, 117, 118, 119, 120
+];
+
+    
+var fps_scale = [             // 10 * sqrt(fps)
+    0,
+    10, 14, 17, 20, 22, 24, 26, 28, 30, 32,
+    33, 35, 36, 37, 39, 40, 41, 42, 14, 45,
+    46, 47, 48, 49, 50, 51, 52, 53, 54, 55,
+    60, 60, 60, 60, 60, 60, 60, 60, 60, 60,
+    65, 65, 65, 65, 65, 65, 65, 65, 65, 65,
+    70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+    75, 75, 75, 75, 75, 75, 75, 75, 75, 75,
+    80, 80, 80, 80, 80, 80, 80, 80, 80, 80,
+    85, 85, 85, 85, 85, 85, 85, 85, 85, 85,
+    90, 90, 90, 90, 90, 90, 90, 90, 90, 90,
+    101, 102, 103, 104, 105, 106, 107, 108, 109, 110,
+    111, 112, 113, 114, 115, 116, 117, 118, 119, 120];
+
+var res_bias = [
+    10, // 352x240
+    10, // 528x320
+     8, // 704x480
+     2, // 1280x720
+     0, // 1920x1080
+     8, // 640x360
+    10, // 320x240
+     8, // 640x480
+     0, // 3M
+     0, // CUSTOM
+     2, // RESOLUTION_1024_1024,
+     0, // RESOLUTION_3840_2160,
+     0, // RESOLUTION_2048_2048,
+     8, // RESOLUTION_512_512,
+     8, // RESOLUTION_PAL,
+     0, // RESOLUTION_2560_2048,
+     0, // RESOLUTION_2048_1024,
+     2, // RESOLUTION_2048_512,
+     0, // RESOLUTION_1536_1536,
+     2, // RESOLUTION_1024_512,
+     2, // RESOLUTION_1280_1024,
+     8, // RESOLUTION_640_512,
+     8, // RESOLUTION_NTSC,
+    10, // RESOLUTION_320_184,
+     0, // RESOLUTION_2944_2944,
+     0, // RESOLUTION_2944_1472,
+     0, // RESOLUTION_2208_2208,
+     1, // RESOLUTION_736_736,
+     2, // RESOLUTION_736_368,
+    10, // RESOLUTION_512_256,
+     0, // RESOLUTION_3008_3008,
+     0, // RESOLUTION_1472_1472,
+     0, // RESOLUTION_1920_1536,
+     0, // RESOLUTION_2560_1024,
+     9, // RESOLUTION_640_256,
+     0, // RESOLUTION_1440_1080,
+     2, // RESOLUTION_960_720,
+    10, // RESOLUTION_480_360,
+     0, // RESOLUTION_3072_1728,
+     0, // RESOLUTION_2592_1944,
+     0, // RESOLUTION_1920_1440,
+     2, // RESOLUTION_1280_960,
+    10, // RESOLUTION_272_240,
+     1, // RESOLUTION_768_768,
+     2, // RESOLUTION_768_384,
+     0, // RESOLUTION_2592_1456,
+     0, // RESOLUTION_1600_1200,
+     0, // RESOLUTION_3072_2048,
+     0, // RESOLUTION_3328_1872,
+     0, // RESOLUTION_3200_1800,
+     0, // RESOLUTION_2560_1440,
+     0, // RESOLUTION_2688_1520,
+     1, // RESOLUTION_880_880,
+     0, // RESOLUTION_1760_1760,
+     0, // RESOLUTION_2640_2640,
+     0, // RESOLUTION_3520_1760,
+     0, // RESOLUTION_3520_3520,
+     2, // RESOLUTION_880_440,
+     0, // RESOLUTION_1440_1440,
+];
+
+for (profile_index in camera.current_profiles) {
+	var profile = camera.current_profiles[profile_index];
+	var codec = profile.current_codec;
+	var codecInfo = camera.getCodecInfo(codec);
+	var resolution = profile.current_resolution;
+	var quality = profile.current_quality;
+	var framerate = profile.current_framerate;
+	var max_framerate = codecInfo.getResolutionInfo(resolution).max_framerate;
+	var resIdx, qulIdx;
+	var maxBitrate;
+	
+	switch (resolution) {
+        case RESOLUTION_TYPE.RES_880_880: resIdx = 52; break;
+        case RESOLUTION_TYPE.RES_1760_1760: resIdx = 53; break;
+        case RESOLUTION_TYPE.RES_2640_2640: resIdx = 54; break;
+        case RESOLUTION_TYPE.RES_3520_1760: resIdx = 55; break;
+        case RESOLUTION_TYPE.RES_3520_3520: resIdx = 56; break;
+	}
+	switch (quality) {
+		case QUALITY_TYPE.QUALITY_LOW: 		qulIdx = 0; break;
+		case QUALITY_TYPE.QUALITY_BASIC: 		qulIdx = 0; break;
+		case QUALITY_TYPE.QUALITY_STANDARD: 	qulIdx = 1; break;
+		case QUALITY_TYPE.QUALITY_HIGH: 			qulIdx = 2; break;
+		case QUALITY_TYPE.QUALITY_VERY_HIGH: 	qulIdx = 3; break;
+	}
+	
+    if(resolution === RESOLUTION_TYPE.RES_1760_1760 && quality === QUALITY_TYPE.QUALITY_VERY_HIGH){
+        console.log('resolution:', resolution)
+        console.log('quality: ', quality)
+        console.log('H264_BITRATE[resIdx]', H264_BITRATE[resIdx]);
+        console.log('H264_BITRATE[resIdx][qulIdx]', H264_BITRATE[resIdx][qulIdx]);
+    }
+	maxBitrate = H264_BITRATE[resIdx][qulIdx];
+
+    if(60 == framerate) {
+        if(5 <= resIdx) { // all of resolution on ONYX and 4K not support 60 ips
+            bitrate = 0;
+        }
+        else {
+            bitrate = maxBitrate * 1.5;
+        }
+    }
+    else {
+        bitrate = maxBitrate * (fps_scale[framerate] + res_bias[resIdx]) / (fps_scale[30] + res_bias[resIdx]);
+    }
+    
+    bitrate = (codec == CODEC_TYPE.CODEC_H264) ? bitrate : bitrate / 2 ;
+	
+	profile.current_bitrate = Math.round(bitrate);
+	
+    if(resolution === RESOLUTION_TYPE.RES_1760_1760 && quality === QUALITY_TYPE.QUALITY_VERY_HIGH){
+        console.log('bitrate: ', bitrate);
+    }
+}
+}
+);
+g_camera_models.push(camera);
+}
+
 //***************************************
 //	PF-CA4031
 //	 new partner 
@@ -15438,6 +15768,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -15878,6 +16213,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -16318,6 +16658,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -16773,6 +17118,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -17206,6 +17556,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -17639,6 +17994,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -18083,6 +18443,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -18530,6 +18895,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -18979,6 +19349,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -20700,6 +21075,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -21143,6 +21523,11 @@ vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_240);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
 vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.DUMMY_NETWORK);
 vr.addSupportCameraType(VIDEO_CAMERA_TYPE.NETWORK);
@@ -21610,6 +21995,11 @@ g_video_recoder_models.push(vr);
     vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
     vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
     vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
     
        
     vr.addSupportRaidType(RAID_TYPE.RAID_NONE);
@@ -22299,6 +22689,11 @@ vr.setCalculateCameraSlot(function func(Resolution, ips) {
     vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
     vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
     vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
 
 
 
@@ -22988,6 +23383,11 @@ vr.setCalculateCameraSlot(function func(Resolution, ips) {
     vr.addSupportResolutionType(RESOLUTION_TYPE.RES_720_288);
     vr.addSupportResolutionType(RESOLUTION_TYPE.RES_960_288);
     vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2688_1520);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_880_880);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_1760_1760);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_2640_2640);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_1760);
+    vr.addSupportResolutionType(RESOLUTION_TYPE.RES_3520_3520);
         
     
     vr.addSupportRaidType(RAID_TYPE.RAID_NONE);
